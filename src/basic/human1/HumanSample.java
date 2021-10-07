@@ -1,7 +1,5 @@
 package basic.human1;
 
-import basic.human1.Human;
-
 //Humanクラスをデータとして利用するクラス
 class HumanSample {
     public static void main(String[] args) {

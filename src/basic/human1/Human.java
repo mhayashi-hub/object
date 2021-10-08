@@ -12,6 +12,13 @@ class Human {
         this.age = age;
     }
 
+    // コンストラクタのオーバーロード
+    // Human型のオブジェクトを流用して新たにオブジェクトを作成するコンストラクタ
+    public Human(Human human) {
+        this.name = human.name;
+        this.age = human.age;
+    }
+
     //アクセサ（ゲッター）
     public String getName() {
         return name;

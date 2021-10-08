@@ -9,7 +9,7 @@ class StaticSample {
      * @param y second integer
      * @return add result
      */
-    public static int add(int x, int y) {
+    static int add(int x, int y) {
         return x + y;
     }
 

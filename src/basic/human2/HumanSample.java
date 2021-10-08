@@ -1,7 +1,7 @@
 package basic.human2;
 
 //フィールドがプライベートではないときの違い
-public class HumanSample {
+class HumanSample {
     public static void main(String[] args) {
         Human human21 = new Human("Tom",28);
 

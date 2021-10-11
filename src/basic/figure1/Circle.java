@@ -17,7 +17,8 @@ class Circle {
      * @return double
      */
     public double getArea() {
-        return radius * Math.PI ;
+    //    return radius * radius * Math.PI ;
+        return Math.PI * Math.pow(radius,2);
     }
     // toString override
     @Override

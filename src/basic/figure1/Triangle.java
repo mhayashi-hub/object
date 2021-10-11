@@ -23,6 +23,6 @@ public class Triangle {
     // override toString method
     @Override
     public String toString() {
-        return String.format("三角形の 高さ:%.2f 幅:%.2f 面積:%.2f",height,width,getArea());
+        return String.format("三角形の 高さ:%.2f 底辺:%.2f 面積:%.2f",height,width,getArea());
     }
 }

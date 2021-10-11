@@ -11,7 +11,6 @@ class Circle {
         return radius;
     }
     // area calc method
-
     /**
      *
      * @return double

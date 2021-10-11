@@ -1,6 +1,6 @@
 package basic.figure1;
 
-public class Triangle {
+class Triangle {
     public double height;
     public double width;
     // constructor

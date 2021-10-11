@@ -1,6 +1,6 @@
 package basic.figure2;
 
-public class Triangle {
+class Triangle extends Figure {
     public double height;
     public double width;
     // constructor
@@ -17,6 +17,11 @@ public class Triangle {
         return width;
     }
     // area calc method
+    /**
+     *
+     * @return double
+     */
+    @Override
     public double getArea() {
         return height * width / 2;
     }

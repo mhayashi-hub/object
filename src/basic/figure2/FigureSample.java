@@ -3,6 +3,18 @@ package basic.figure2;
 class FigureSample {
     public static void main(String[] args) {
 
+        Figure[] figures = {
+                new Circle(4),
+                new Rectangle(5,41),
+                new Rectangle(4,2),
+                new Triangle(3,4),
+                new Circle(2.5)
+        };
+
+        for (Figure figure:figures) {
+            System.out.println(figure);
+        }
+        /*
         Rectangle r1 = new Rectangle(5,41);
         Rectangle r2 = new Rectangle(3.5,2.4);
         Rectangle r3 = r1;
@@ -26,6 +38,7 @@ class FigureSample {
         System.out.println(t1);
         System.out.println(r4);
         System.out.println(Math.PI);
+         */
 
     }
 }

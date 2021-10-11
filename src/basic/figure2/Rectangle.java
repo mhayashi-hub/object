@@ -1,6 +1,6 @@
 package basic.figure2;
 
-class Rectangle {
+class Rectangle extends Figure {
     private double height;
     private double width;
     // constructor
@@ -21,6 +21,7 @@ class Rectangle {
      *
      * @return double
      */
+    @Override
     public double getArea(){
         return height * width;
     }

@@ -1,6 +1,6 @@
 package basic.figure2;
 
-class Circle {
+class Circle extends Figure {
     private double radius;
     // constructor
     public Circle(double radius) {
@@ -15,10 +15,11 @@ class Circle {
      *
      * @return double
      */
-    public double getArea() {
-    //    return radius * radius * Math.PI ;
+    @Override
+    double getArea() {
         return Math.PI * Math.pow(radius,2);
     }
+
     // toString override
     @Override
     public String toString() {

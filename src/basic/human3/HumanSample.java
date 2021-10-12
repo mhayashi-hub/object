@@ -23,7 +23,7 @@ class HumanSample {
          */
         // make Human type array as human extended classes
         Human[] humans = {
-                new Human("Top"),
+                new Human("Tom"),
                 new Japanese("ひろし"),
                 new Chinese("王"),
                 new French("Abel"),

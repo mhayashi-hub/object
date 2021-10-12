@@ -31,6 +31,7 @@ class HumanSample {
         };
         // show array by fore loop
         for (Human human:humans) {
+            System.out.println("発言者："+human.getName());
             human.sayHello();
         }
     }

@@ -23,6 +23,7 @@ class HumanSample {
                 new Deutsch("Martin")
         };
         // show array by forE loop
+        // hは配列要素の変数を自動で入れるための枠でしかなく、名称規則などはない。(forEループで自動でindexを入れてくれる。)
         for (IfSayHello h:hellohumans) {
             h.sayHello();
         }

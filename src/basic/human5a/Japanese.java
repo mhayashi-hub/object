@@ -6,6 +6,6 @@ class Japanese extends Human {
     }
     @Override
     public void sayHello() {
-        System.out.println("こんにちは。わたしの名前は "+name+" です。");
+        System.out.println("こんにちは。わたしの名前は " + name + " です。");
     }
 }

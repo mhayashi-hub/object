@@ -6,4 +6,3 @@ abstract class Figure {
     // write retrun value type and method name
     abstract double getArea();
 }
-

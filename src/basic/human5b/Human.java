@@ -1,6 +1,6 @@
-package basic.human5a;
+package basic.human5b;
 
-abstract class Human implements IfSayHello, IfGetName {
+abstract class Human implements IfSayHello {
     // class field
     protected String name;
     // constructor

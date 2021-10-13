@@ -1,5 +1,5 @@
 package basic.human5a;
 
-public interface IfSayHello {
+interface IfSayHello {
     void sayHello();
 }

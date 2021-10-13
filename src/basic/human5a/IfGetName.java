@@ -1,5 +1,5 @@
 package basic.human5a;
 
-public interface IfGetName {
+interface IfGetName {
     String getName();
 }

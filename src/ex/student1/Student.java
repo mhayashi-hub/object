@@ -54,14 +54,15 @@ public class Student {
         return sumscore;
     }
     public double ave() {
-        double avescore = Math.round(this.sum() * 100.0) / 3 / 100.0;
+        // double avescore = Math.round(this.sum() * 100.0) / 3 / 100.0;
+        double avescore = this.sum() / 3.00;
         return avescore;
     }
     // output method
     public String q2Answer() {
-        return String.format("%s %s %d %d %d %d",name,gender,jap,math,eng,sum());
+        return this.q1Answer() + String.format(" %d",sum());
     }
     public String q3Answer() {
-        return String.format("%s %s %d %d %d %d %.2f",name,gender,jap,math,eng,sum(),ave());
+        return this.q2Answer() + String.format(" %.2f",ave());
     }
 }

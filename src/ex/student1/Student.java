@@ -44,7 +44,7 @@ public class Student {
         return String.format("%s %s %d %d %d",name,gender,jap,math,eng);
     }
     */
-    // methods
+    // output methods for Q1 Answer
     public String q1Answer () {
         return String.format("%s %s %d %d %d",name,gender,jap,math,eng);
     }
@@ -58,7 +58,7 @@ public class Student {
         double avescore = this.sum() / 3.00;
         return avescore;
     }
-    // output method
+    // output method for Q2,3 Answer
     public String q2Answer() {
         return this.q1Answer() + String.format(" %d",sum());
     }

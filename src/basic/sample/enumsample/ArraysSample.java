@@ -3,6 +3,21 @@ package basic.sample.enumsample;
 import java.util.Arrays;
 
 public class ArraysSample {
+    // 可変長引数の指定の仕方
+    // 引数を(型... + 配列名)で指定する。複数の引数を配列として受け取る。(コンパイル時に配列に展開する。)
+    // 可変長引数に指定できるのは、引数リストの最後の引数だけ。複数の引数種別を可変長にはできない。
+    // 可変長として受け取れるのは一つのメソッドで一つ、なぜなら配列に格納するので型一致でないと取り込めないから。
+    static int sum(int... array) {
+        // forEループで初期化後にループ内で順次追加して合算結果を返すメソッドの実装
+        // forEならループ数は要素数すべてを自動設定してループしてくれるのでこれに使える。
+        // また引数的の数がメソッド側では不明なので、内部でforEに入れて全要素を処理するよう
+        // 気を付けて処理する必要がある。
+        // 引数の可変長部分は配列としてコンパイル時に確定するので、配列の処理と同じに扱う。
+        int sum = 0;
+        for (int value:array) sum += value;
+        return sum;
+    }
+
     public static void main(String[] args) {
         // copy arrays
         //　ArraysクラスのCopyOfメソッドで定義済みの配列を拡張(要素数を増減)することができる。
@@ -43,6 +58,7 @@ public class ArraysSample {
         int [] array1 = {2,4,7,1,8};
         // ソートしてない配列でのbinarysearchは結果が未定義、何が返ってくるかは不明。
         // 下記の結果では一応期待する値が戻ってくるが、常に正常に動くという保証はされないので使うべきではない。
+        // 配列要素をソートせずに検索したい場合はArraysクラス外or自己実装のlinersearchなどで検索する。
         System.out.println(Arrays.binarySearch(array1,4));
         System.out.println(Arrays.binarySearch(array1,6));
         // 例：配列をソートして利用
@@ -50,19 +66,22 @@ public class ArraysSample {
         // ソート済み配列で検索、検索対象の値をキーとして指定、結果は配列内要素のindexで出てくる。
         System.out.println(Arrays.binarySearch(array1,4));
         System.out.println(Arrays.binarySearch(array1,1));
+        // 配列要素と検索キーが合致する場合は常に正か0の値が返るので、検索キーが含まれているかの結果判定に>=0が使える。
         // 検索時に指定した対象が配列にない場合、負値が出てくる。
-        // 配列要素と検索キーが合致する場合は常に正の値が返るので、検索キーが含まれているかの結果判定に>=0が使える。
         // 検索対象を配列と比較し、どこに入れるかを判定しその挿入可能な箇所のindexを内部計算し、-index-1を返す。
         System.out.println(Arrays.binarySearch(array1,3));
-        // 例えば1,2,4の配列で3を検索した場合、昇順ソートなので2,4の間に挿入できるのでindexは2となるはず、、
+        // 例えば1,2,4の配列で3を検索した場合、昇順ソートなので2,4の間に挿入できるのでindexは2となるはず。
         // ソート結果でarray1[0]=1,array1[1]=2,array1[2]=4で3はarray1[2]より小さいためindexの2に
         // 仮に挿入可能と判断して、-index-1=-2-1として-3を返す。
         System.out.println(Arrays.binarySearch(array1,12));
-        // 配列要素のどれよりも大きい場合は配列.lengthの負値(-array1.length)を返すので-6。
+        // 検索キーが配列要素のどれよりも大きい場合はindexに-array1.lengthを返すので-index=-5-1=-6。
         System.out.println(Arrays.binarySearch(array1,-12));
         // 配列要素のどれよりも小さい場合は最初の配列要素より前なのでindex[0]に入れられると判断して
         // index=0、出てくる値は-index-1=0-1=-1となる。
+        // オブジェクトを要素とした配列の場合は？
 
-
+        // 可変長引数
+        System.out.println(sum(1,2,3,4,5));
+        System.out.println(sum(10,20));
     }
 }

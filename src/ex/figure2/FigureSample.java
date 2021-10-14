@@ -37,6 +37,7 @@ class FigureSample {
                 new Circle(2.5)
         ));
         */
+        /*
         // ArrayList作成時にインスタンスも追加
         List<Figure> figures = new ArrayList<>(
                 Arrays.asList(
@@ -46,7 +47,23 @@ class FigureSample {
                         new Triangle(3,4),
                         new Circle(2.5)
                 ));
-
+        */
+        // 先にオブジェクトをFigure型でインスタンス宣言しておく。
+        // 実はFigureがスーパークラスでCircleなどの個別のサブクラスに継承しているので、Circleの宣言でも
+        // Figureクラスとしてまとめて扱える？
+        // ↑ サブクラスとスーパークラスでメンバが同一ならサブクラスでもスーパークラスでもどちらで宣言しても
+        //   同じに扱える。ただしメンバを変更した場合はその限りでないので、メンバ構成の違いに注意する必要がある。
+        Circle figCir1 = new Circle(4);
+        Figure figRct1 = new Rectangle(5,41);
+        Figure figRct2 = new Rectangle(4,2);
+        Figure figTri1 = new Triangle(3,4);
+        Figure figCir2 = new Circle(2.5);
+        // 宣言済みインスタンスをArrays.asListにまとめて指定して与える。
+        // 事前にFigure型インスタンスとしてnewしてあるので、もうインスタンスを並べるだけでよい。
+        List<Figure> figures = new ArrayList<>(
+                Arrays.asList(figCir1,figRct1,figRct2,figTri1,figCir2)
+        );
+        // forE loop
         for (Figure figure:figures) {
             System.out.println(figure);
         }

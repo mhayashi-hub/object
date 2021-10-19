@@ -1,0 +1,4 @@
+test output to file
+
+test output to file-2 write to file
+これはテスト出力toTextです。

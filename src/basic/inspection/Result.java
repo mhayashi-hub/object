@@ -59,6 +59,6 @@ class Result {
     // output override
     @Override
     public String toString() {
-        return String.format("%-13s%-7s%19s %2.1f %3d  %4.1f   %4.1f   %4.1f",id,name,dateTime,bT,pulse,sBP,dBP,this.getMBP());
+        return String.format("%-13s%-8s%19s %2.1f %3d  %4.1f   %4.1f   %4.1f",id,name,dateTime,bT,pulse,sBP,dBP,this.getMBP());
     };
 }

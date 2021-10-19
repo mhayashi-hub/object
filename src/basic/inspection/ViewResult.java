@@ -27,7 +27,7 @@ class ViewResult {
         ));
         // outoput table title
         // System.out.println(" ID           名前      検査日時             体温  脈拍 血圧(上) 血圧(下) 平均血圧");
-        System.out.printf(" %2s %11s %10s %14s %3s %3s %s %s\n","ID","名前","検査日時","体温","脈拍","血圧(上)","血圧(下)","平均血圧");
+        System.out.printf(" %2s %11s %10s %15s %3s %3s %s %s\n","ID","名前","検査日時","体温","脈拍","血圧(上)","血圧(下)","平均血圧");
         // data output
         for (Result patient:patients) {
             System.out.println(patient);

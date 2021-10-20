@@ -66,12 +66,12 @@ class ItemSearch {
         int searchNo = 0;
         // set search value
         searchNo = 3;
-        System.out.println(itemList.containsValue(searchNo));
+        // System.out.println(itemList.containsValue(searchNo));
         System.out.println("商品ID" + searchNo + "による検索");
         if (itemList.isEmpty()) {
             System.out.println("Error: テーブルは空です。");
-        } else if (itemList.containsValue(searchNo) != true) {
-            System.out.println("Error: IDがテーブルに含まれていません。");
+        // } else if (itemList.containsValue(searchNo) != true) {
+        //     System.out.println("Error: IDがテーブルに含まれていません。");
         } else {
             if (searchNo > itemList.size()) {
                 System.out.println("該当商品はありません");

@@ -65,7 +65,8 @@ class ItemSearch {
         // init search value
         int searchNo = 0;
         // set search value
-        searchNo = 8;
+        searchNo = 3;
+        System.out.println(itemList.containsValue(searchNo));
         System.out.println("商品ID" + searchNo + "による検索");
         if (itemList.isEmpty()) {
             System.out.println("Error: テーブルは空です。");

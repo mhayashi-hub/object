@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-class PersonSample {
+class ViewPerson {
     public static void main(String[] args) {
         // ArrayList作成、５名のデータでpersonインスタンスを作成して追加
         List<Person> personList = new ArrayList<>();
@@ -77,7 +77,7 @@ class PersonSample {
                 sumWomenAge += person.getAge();
                 countWomen++;
             } else {
-                System.out.println("Error: 計算不能、性別が男女意外です。");
+                System.out.println("Error: 計算不能、性別が男女以外です。");
             }
         }
         if (countMen <= 0 ) {
@@ -92,6 +92,7 @@ class PersonSample {
         }
         // task 5
         System.out.println("課題５");
+        /*
         personList.sort(Comparator.comparing(Person::getAge,Comparator.reverseOrder()));
         for (Person person:personList) {
             if (person.getGender() == Gender.MEN) {
@@ -105,5 +106,23 @@ class PersonSample {
                 break;
             }
         }
+         */
+        int index = 0;
+        List<Integer> menPos = new ArrayList<>();
+        List<Integer> womenPos = new ArrayList<>();
+        for (Person person:personList) {
+            if (person.getGender().equals(Gender.MEN)) {
+                menPos.add(index);
+            } else if (person.getGender().equals(Gender.WOMEN)) {
+                womenPos.add(index);
+            }
+            index++;
+        }
+        // size()は要素数のため1から数えるが、indexは0始まりなので単純にsize()をとると最大値はindexの範囲を超える。
+        // そのためindexの最大値はsize()-1として生成する必要がある。
+        System.out.println("男性の最年長：" + personList.get(menPos.get(menPos.size()-1)));
+        System.out.println("女性の最年長：" + personList.get(womenPos.get(womenPos.size()-1)));
+        System.out.println("男性の最年少：" + personList.get(menPos.get(0)));
+        System.out.println("女性の最年少：" + personList.get(womenPos.get(0)));
     }
 }

@@ -3,9 +3,9 @@ package basic.sample;
 class SuperClass {}
 
 interface Interface1 {}
-
+// SubClass1 are constructed and succeeded from SuperClass
 class SubClass1 extends SuperClass {}
-
+// SubClass2 are constructed and succeeded frrom SuperClass and implemented Interface1
 class SubClass2 extends SuperClass implements Interface1 {}
 
 class InstanceOfSample {

@@ -11,6 +11,7 @@ class ViewPerson {
     // 課題内容：
     // 地域別に各性別の名前、年齢の人間を数人作成し、地域ごとのグループに分けてリストに作る。
     // 作ったリストから各地域ごとで集計し、地域ごとの平均年齢を計算して出力する。
+    // 地域ごとに性別ごとの平均年齢を計算して出力する。
     public static void main(String[] args) {
         // initial list declaration
         List<Person> personList = new ArrayList<>();
@@ -79,9 +80,6 @@ class ViewPerson {
             ageSum = 0;
             ageSumMen = 0;
             MenCountPerArea = 0;
-            ageAve = 0.0;
-            ageAveMen = 0.0;
-            ageAveWomen = 0.0;
 
             List<Person> extList = (List<Person>) entry.getValue();
             for (Person extobj:extList) {

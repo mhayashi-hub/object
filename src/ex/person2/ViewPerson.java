@@ -62,13 +62,28 @@ class ViewPerson {
                 break;
             }
         }
+        int ageSum = 0;
+        int ageSumMen = 0;
+        int MenCountPerArea = 0;
+        double ageAve = 0.0;
+        double ageAveMen = 0.0;
+        double ageAveWomen = 0.0;
+
+        // Mapのエントリを取り出す。エントリはkeyの追加数になるので、今回の場合は地域の区分数になる。
+        // つまり4が出てくる。これはkey:valueのペアの数であるため。
+        // ここでvalueの要素数を取り出すなら、keyごとにvalueを取り出してListとして扱いそのリストサイズをとる必要がある。
+        System.out.println("地域区分数: "+personAreaMap.entrySet().size());
+        // 下記のようにkeyを指定することで、取り出した要素がリストになりそのリストの要素についての操作ができる。
+        System.out.println("大阪の登録人数: "+personAreaMap.get(BirthPlace.OSAKA).size());
+
         for (Map.Entry entry:personAreaMap.entrySet()) {
-            int ageSum = 0;
-            int ageSumMen = 0;
-            int MenCountPerArea = 0;
-            double ageAve = 0.0;
-            double ageAveMen = 0.0;
-            double ageAveWomen = 0.0;
+            ageSum = 0;
+            ageSumMen = 0;
+            MenCountPerArea = 0;
+            ageAve = 0.0;
+            ageAveMen = 0.0;
+            ageAveWomen = 0.0;
+
             List<Person> extList = (List<Person>) entry.getValue();
             for (Person extobj:extList) {
                 System.out.println(extobj);

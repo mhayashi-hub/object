@@ -1,7 +1,6 @@
 package ex.person2;
 
 import basic.sample.enumsample.Gender;
-import ex.student1.Student;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,13 +95,15 @@ class ViewPerson {
             ageAve = Math.round(10.0 * ageSum / (((List<Person>) entry.getValue()).size())) /10.0;
             System.out.println("地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの平均年齢："+ageAve);
 
-            ageAveMen = Math.round(10.0 *
-                    ageSumMen / MenCountPerArea) / 10.0;
+            ageAveMen = Math.round(10.0 * ageSumMen / MenCountPerArea) / 10.0;
             ageAveWomen = Math.round(10.0 *
-                    (ageSum - ageSumMen) / (((List<Person>) entry.getValue()).size() - MenCountPerArea)) / 10.0;
+                    (ageSum - ageSumMen) / (((List<Person>) entry.getValue()).size() - MenCountPerArea))
+                    / 10.0;
 
-            System.out.println("地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの男性の平均年齢："+ageAveMen);
-            System.out.println("地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの女性の平均年齢："+ageAveWomen);
+            System.out.println(
+                    "地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの男性の平均年齢："+ageAveMen);
+            System.out.println(
+                    "地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの女性の平均年齢："+ageAveWomen);
         }
 
     }

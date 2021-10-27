@@ -34,4 +34,9 @@ class MemberTestResult {
     public int getEng() {
         return eng;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s テスト時期：%s 国語：%d 数学：%d 英語：%d",name,testPeriod.getJpName(),jap,math,eng);
+    }
 }

@@ -4,7 +4,9 @@ import basic.sample.enumsample.Gender;
 import ex.person2.BirthPlace;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class ViewMemberInfo {
     public static void main(String[] args) {
@@ -63,24 +65,38 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("やまだ", TestPeriod.P1,46,34,22));
         memberTestList.add(new MemberTestResult("ささもと", TestPeriod.P1,57,55,42));
         memberTestList.add(new MemberTestResult("ささき", TestPeriod.P1,75,68,94));
-        memberTestList.add(new MemberTestResult("すずき", TestPeriod.P1,19,60,74);
+        memberTestList.add(new MemberTestResult("すずき", TestPeriod.P1,19,60,74));
         memberTestList.add(new MemberTestResult("しろた", TestPeriod.P1,73,80,76));
         memberTestList.add(new MemberTestResult("かわもと", TestPeriod.P1,68,49,35));
-        memberTestList.add(new MemberTestResult("かまた", Gender.MEN,22));
-        memberTestList.add(new MemberTestResult("さとう", Gender.WOMEN,21));
-        memberTestList.add(new MemberTestResult("たかはし", Gender.MEN,57));
-        memberTestList.add(new MemberTestResult("きたに", Gender.MEN,41));
-        memberTestList.add(new MemberTestResult("なかの", Gender.WOMEN,46));
-        memberTestList.add(new MemberTestResult("のだ", Gender.WOMEN,61));
-        memberTestList.add(new MemberTestResult("ひらもと", Gender.MEN,19));
-        memberTestList.add(new MemberTestResult("はざき", Gender.MEN,28));
-        memberTestList.add(new MemberTestResult("すもと", Gender.WOMEN,45));
-        memberTestList.add(new MemberTestResult("あかい", Gender.MEN,35));
-        memberTestList.add(new MemberTestResult("きりや", TestPeriod.P1,33));
-        memberTestList.add(new MemberTestResult("しぶや", TestPeriod.P1,49));
-        memberTestList.add(new MemberTestResult("たまい", TestPeriod.P1,50));
-        memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1,20));
+        memberTestList.add(new MemberTestResult("かまた", TestPeriod.P1,62,75,89));
+        memberTestList.add(new MemberTestResult("さとう", TestPeriod.P1,81,98,100));
+        memberTestList.add(new MemberTestResult("たかはし", TestPeriod.P1,77,64,89));
+        memberTestList.add(new MemberTestResult("きたに", TestPeriod.P1,23,56,71));
+        memberTestList.add(new MemberTestResult("なかの", TestPeriod.P1,50,52,69));
+        memberTestList.add(new MemberTestResult("のだ", TestPeriod.P1,65,78,45));
+        memberTestList.add(new MemberTestResult("ひらもと", TestPeriod.P1,45,60,78));
+        memberTestList.add(new MemberTestResult("はざき", TestPeriod.P1,45,50,100));
+        memberTestList.add(new MemberTestResult("すもと", TestPeriod.P1,55,67,23));
+        memberTestList.add(new MemberTestResult("あかい", TestPeriod.P1,78,77,45));
+        memberTestList.add(new MemberTestResult("きりや", TestPeriod.P1,24,57,42));
+        memberTestList.add(new MemberTestResult("しぶや", TestPeriod.P1,79,76,88));
+        memberTestList.add(new MemberTestResult("たまい", TestPeriod.P1,58,47,92));
+        memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1,20,90,56));
+        // テスト結果のリストをマップにまとめる
+        Map<String,List<MemberTestResult>> memberTestListMap = new HashMap<>();
+        for (MemberTestResult member:memberTestList) {
+            if (! memberTestListMap.containsKey(member.getName())) {
+                List<MemberTestResult> list = new ArrayList<> ();
+                list.add(member);
+                memberTestListMap.put(member.getName(),list);
+            } else if (memberTestListMap.containsKey(member.getName())) {
+                memberTestListMap.get(member.getName()).add(member);
+            } else {
+                System.out.println("Error ; Mapに追加できません。");
+            }
+        }
 
+        // confirm contents of List
         for (Member member:memberList) {
             System.out.println(member);
         }
@@ -88,5 +104,11 @@ class ViewMemberInfo {
         for (MemberArea memberArea:memberAreaList) {
             System.out.println(memberArea);
         }
+
+        for (MemberTestResult testResult:memberTestList) {
+            System.out.println(testResult);
+        }
+
+
     }
 }

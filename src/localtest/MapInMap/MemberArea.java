@@ -2,7 +2,7 @@ package localtest.MapInMap;
 
 import ex.person2.BirthPlace;
 
-class MemberArea extends Member implements IfGetInfo {
+class MemberArea extends Member {
     private BirthPlace birthPlace;
     private CurrentPlace currentPlace;
 

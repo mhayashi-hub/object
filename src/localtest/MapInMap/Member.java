@@ -1,6 +1,6 @@
 package localtest.MapInMap;
 
-public class Member {
+public class Member implements IfGetInfo {
     protected String name;
 
     public Member(String name) {
@@ -9,5 +9,10 @@ public class Member {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getInfo () {
+        return String.format("%s ", name);
     }
 }

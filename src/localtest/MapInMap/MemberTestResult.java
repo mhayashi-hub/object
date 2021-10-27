@@ -1,6 +1,6 @@
 package localtest.MapInMap;
 
-class MemberTestResult extends Member implements IfGetInfo {
+class MemberTestResult extends Member {
     private TestPeriod testPeriod;
     private int jap;
     private int math;

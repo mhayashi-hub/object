@@ -2,7 +2,7 @@ package localtest.MapInMap;
 
 import basic.sample.enumsample.Gender;
 
-class MemberProperty extends Member implements IfGetInfo {
+class MemberProperty extends Member {
     private Gender gender;
     private int age;
 

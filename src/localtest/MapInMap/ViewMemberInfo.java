@@ -181,8 +181,8 @@ class ViewMemberInfo {
          */
         for (Map.Entry entry : memberListMap.entrySet()) {
             System.out.println(entry);
-            for (MemberProperty property : ((List<MemberProperty>) entry.getValue())) {
-               System.out.println(((List<?>) entry.getValue(entry)).get());
+            for (Member element : ((List<MemberProperty>) entry.getValue())) {
+               System.out.println(element.getInfo());
             }
         }
 

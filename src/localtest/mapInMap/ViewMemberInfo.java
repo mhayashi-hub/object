@@ -181,7 +181,7 @@ class ViewMemberInfo {
             System.out.println(testResult);
         }
          */
-        int i;
+        // int i;
         for (Map.Entry entry : memberListMap.entrySet()) {
             System.out.println(entry);
             System.out.println(entry.getKey());

@@ -103,6 +103,5 @@ class ViewPerson {
             System.out.println(
                     "地域名："+((BirthPlace) entry.getKey()).getName()+" 地域ごとの女性の平均年齢："+ageAveWomen);
         }
-
     }
 }

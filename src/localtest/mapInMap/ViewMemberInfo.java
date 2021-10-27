@@ -1,4 +1,4 @@
-package localtest.MapInMap;
+package localtest.mapInMap;
 
 import basic.sample.enumsample.Gender;
 import ex.person2.BirthPlace;
@@ -132,7 +132,7 @@ class ViewMemberInfo {
         */
         // superClass MemberくくりでMapにListの情報をまとめる。
         Map<String, List<Member>> memberListMap = new HashMap<>();
-        for (Member member : memberList) {
+        for (MemberProperty member : memberList) {
             if (!memberListMap.containsKey(member.getName())) {
                 List<Member> list = new ArrayList<>();
                 list.add(member);
@@ -143,7 +143,7 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapに属性情報を追加できません。");
             }
         }
-        for (Member memberArea : memberAreaList) {
+        for (MemberArea memberArea : memberAreaList) {
             if (!memberListMap.containsKey(memberArea.getName())) {
                 List<Member> listArea = new ArrayList<>();
                 listArea.add(memberArea);
@@ -154,7 +154,7 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapに地域情報を追加できません。");
             }
         }
-        for (Member memberScore : memberTestList) {
+        for (MemberTestResult memberScore : memberTestList) {
             if (!memberListMap.containsKey(memberScore.getName())) {
                 List<Member> listScore = new ArrayList<>();
                 listScore.add(memberScore);
@@ -165,7 +165,7 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }
         }
-        // 共通キーnameを使って名前をkeyとしてvalueにリストをさらにArrayListを作って書き込んでみた。
+        // 共通キーnameを使って名前をkeyとしてvalueにListをさらにArrayListを作って書き込んでみた。
         // Valueで帰ってくるオブジェクトはArrayListなのは確認済み。
         // List内部のListの値をどうやって取得、検索、操作するのかを確認したい。
 
@@ -181,11 +181,21 @@ class ViewMemberInfo {
             System.out.println(testResult);
         }
          */
+        int i;
         for (Map.Entry entry : memberListMap.entrySet()) {
             System.out.println(entry);
             System.out.println(entry.getKey());
-            for (Member element : ((List<MemberArea>) entry.getValue())) {
+            for (Member element : ((List<Member>) entry.getValue())) {
                 System.out.println(element.getInfo());
+                /*
+                for (i=0;i <= ((List<MemberTestResult>) element).size()-1;i++){
+                    if (((List<MemberTestResult>) element).get(i).getTestPeriod().equals(TestPeriod.P2)) {
+                        System.out.println(((List<MemberTestResult>) element).get(i).getInfo());
+                    } else {
+                        System.out.println("テスト期間："+TestPeriod.P2.getJpName()+"の成績はありません。");
+                    }
+                }
+                 */
             }
             System.out.println("");
         }

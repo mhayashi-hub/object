@@ -165,7 +165,9 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }
         }
-
+        // 共通キーnameを使って名前をkeyとしてvalueにリストをさらにArrayListを作って書き込んでみた。
+        // Valueで帰ってくるオブジェクトはArrayListなのは確認済み。
+        // List内部のListの値をどうやって取得、検索、操作するのかを確認したい。
 
         // confirm contents of List
         /*
@@ -181,9 +183,11 @@ class ViewMemberInfo {
          */
         for (Map.Entry entry : memberListMap.entrySet()) {
             System.out.println(entry);
-            for (Member element : ((List<MemberProperty>) entry.getValue())) {
-               System.out.println(element.getInfo());
+            System.out.println(entry.getKey());
+            for (Member element : ((List<MemberArea>) entry.getValue())) {
+                System.out.println(element.getInfo());
             }
+            System.out.println("");
         }
 
 

@@ -61,7 +61,11 @@ class ViewMemberInfo {
 
         List<MemberTestResult> memberTestList = new ArrayList<> ();
         memberTestList.add(new MemberTestResult("かねだ", TestPeriod.P1,65,45,68));
+        memberTestList.add(new MemberTestResult("かねだ", TestPeriod.P2,73,52,66));
+        memberTestList.add(new MemberTestResult("かねだ", TestPeriod.P3,81,62,72));
         memberTestList.add(new MemberTestResult("はまたに", TestPeriod.P1,78,90,46));
+        memberTestList.add(new MemberTestResult("はまたに", TestPeriod.P2,89,92,66));
+        memberTestList.add(new MemberTestResult("はまたに", TestPeriod.P4,85,91,62));
         memberTestList.add(new MemberTestResult("やまだ", TestPeriod.P1,46,34,22));
         memberTestList.add(new MemberTestResult("ささもと", TestPeriod.P1,57,55,42));
         memberTestList.add(new MemberTestResult("ささき", TestPeriod.P1,75,68,94));
@@ -109,6 +113,9 @@ class ViewMemberInfo {
             System.out.println(testResult);
         }
 
+        for (Map.Entry entry:memberTestListMap.entrySet()) {
+            System.out.println(entry);
+        }
 
     }
 }

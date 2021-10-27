@@ -2,19 +2,14 @@ package localtest.MapInMap;
 
 import ex.person2.BirthPlace;
 
-class MemberArea {
-    private String name;
+class MemberArea extends Member implements IfGetInfo {
     private BirthPlace birthPlace;
     private CurrentPlace currentPlace;
 
     public MemberArea(String name, BirthPlace birthPlace, CurrentPlace currentPlace) {
-        this.name = name;
+        super(name);
         this.birthPlace = birthPlace;
         this.currentPlace = currentPlace;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public BirthPlace getBirthPlace() {
@@ -27,7 +22,11 @@ class MemberArea {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s", name,birthPlace.getName(),currentPlace.getAreaName());
+        return String.format("%s 出身：%s 所在地：%s", name,birthPlace.getName(),currentPlace.getAreaName());
     }
 
+    @Override
+    public String getInfo() {
+        return String.format(" 出身：%s 所在地：%s", birthPlace.getName(),currentPlace.getAreaName());
+    }
 }

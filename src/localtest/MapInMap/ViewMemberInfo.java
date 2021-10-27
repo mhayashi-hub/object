@@ -34,6 +34,20 @@ class ViewMemberInfo {
         memberList.add(new Member("しぶや", Gender.WOMEN,49));
         memberList.add(new Member("たまい", Gender.MEN,50));
         memberList.add(new Member("さかい", Gender.WOMEN,20));
+        //
+        Map<String,List<Member>> memberListMap = new HashMap<>();
+        for (Member member:memberList) {
+            if (! memberListMap.containsKey(member.getName())) {
+                List<Member> list = new ArrayList<> ();
+                list.add(member);
+                memberListMap.put(member.getName(),list);
+            } else if (memberListMap.containsKey(member.getName())) {
+                memberListMap.get(member.getName()).add(member);
+            } else {
+                System.out.println("Error : マップ処理に失敗しました。");
+            }
+        }
+
 
         List<MemberArea> memberAreaList = new ArrayList<> ();
         memberAreaList.add(new MemberArea("かねだ", BirthPlace.TOKYO,CurrentPlace.TOKYO));
@@ -58,6 +72,20 @@ class ViewMemberInfo {
         memberAreaList.add(new MemberArea("しぶや", BirthPlace.FUKUOKA,CurrentPlace.HOKKAIDO));
         memberAreaList.add(new MemberArea("たまい", BirthPlace.TOKYO,CurrentPlace.FUKUOKA));
         memberAreaList.add(new MemberArea("さかい", BirthPlace.OSAKA,CurrentPlace.HOKKAIDO));
+        // Area情報をマップにまとめる
+        Map<String,List<MemberArea>> memberAreaListMap = new HashMap<>();
+        for (MemberArea memberArea:memberAreaList) {
+            if (! memberAreaListMap.containsKey(memberArea.getName())) {
+                List<MemberArea> list = new ArrayList<> ();
+                list.add(memberArea);
+                memberAreaListMap.put(memberArea.getName(),list);
+            } else if(memberAreaListMap.containsKey(memberArea.getName())) {
+                memberAreaListMap.get(memberArea.getName()).add(memberArea);
+            } else {
+                System.out.println("Error : Mapへの追加に失敗しました。");
+            }
+        }
+
 
         List<MemberTestResult> memberTestList = new ArrayList<> ();
         memberTestList.add(new MemberTestResult("かねだ", TestPeriod.P1,65,45,68));
@@ -114,6 +142,10 @@ class ViewMemberInfo {
         }
 
         for (Map.Entry entry:memberTestListMap.entrySet()) {
+            System.out.println(entry);
+        }
+
+        for (Map.Entry entry:memberAreaListMap.entrySet()) {
             System.out.println(entry);
         }
 

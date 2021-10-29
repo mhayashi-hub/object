@@ -154,16 +154,18 @@ class ViewMemberInfo {
         //   もう一つの問題として、Mapの場合valueに指定できるオブジェクト型が一つに統一される。
         //   そのため、valueにListもMapも同じネスト階層として書き込むことができない。(型チェックではじかれる。)
         Map<String, Map<String,List<Member>>> memberInfoMap = new HashMap<>();
-
-        for (String member : memberListMap.keySet()) {
+        /*
+        //for (String member : memberListMap.keySet()) {
             if (!memberInfoMap.containsKey(member)) {
-                memberInfoMap.put(member,menberListMap);
-            } else if () {
-                memberInfoMap.get(member).;
+            //    System.out.println(memberListMap.get(member));
+            //    memberInfoMap.put(member, new Map<String,List<Member>> (member, memberListMap.get(member)));
+            //} else if () {
+            //    memberInfoMap.get(member).;
             } else {
                 System.out.println("Error : Mapに属性情報を追加できません。");
             }
         }
+        /*
         // Member型でmemberAreaの内容をmemberInfoMapに追加する。
         for (MemberArea memberArea : memberAreaList) {
             if (!memberListMap.containsKey(memberArea.getName())) {

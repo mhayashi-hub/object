@@ -34,12 +34,12 @@ class ViewMemberInfo {
         memberList.add(new MemberProperty("しぶや", Gender.WOMEN, 49));
         memberList.add(new MemberProperty("たまい", Gender.MEN, 50));
         memberList.add(new MemberProperty("さかい", Gender.WOMEN, 20));
-        /*
+
         // member情報をMapにまとめる。
-        Map<String,List<MemberProperty>> memberListMap = new HashMap<>();
-        for (MemberProperty member:memberList) {
+        Map<String,List<Member>> memberListMap = new HashMap<>();
+        for (Member member:memberList) {
             if (! memberListMap.containsKey(member.getName())) {
-                List<MemberProperty> list = new ArrayList<> ();
+                List<Member> list = new ArrayList<> ();
                 list.add(member);
                 memberListMap.put(member.getName(),list);
             } else if (memberListMap.containsKey(member.getName())) {
@@ -48,7 +48,7 @@ class ViewMemberInfo {
                 System.out.println("Error : マップ処理に失敗しました。");
             }
         }
-        */
+
         List<MemberArea> memberAreaList = new ArrayList<>();
         memberAreaList.add(new MemberArea("かねだ", BirthPlace.TOKYO, CurrentPlace.TOKYO));
         memberAreaList.add(new MemberArea("はまたに", BirthPlace.HOKKAIDO, CurrentPlace.TOKYO));
@@ -72,12 +72,12 @@ class ViewMemberInfo {
         memberAreaList.add(new MemberArea("しぶや", BirthPlace.FUKUOKA, CurrentPlace.HOKKAIDO));
         memberAreaList.add(new MemberArea("たまい", BirthPlace.TOKYO, CurrentPlace.FUKUOKA));
         memberAreaList.add(new MemberArea("さかい", BirthPlace.OSAKA, CurrentPlace.HOKKAIDO));
-        /*
-        // Area情報をマップにまとめる
-        Map<String,List<MemberArea>> memberAreaListMap = new HashMap<>();
-        for (MemberArea memberArea:memberAreaList) {
+
+        // Area情報をMapにまとめる
+        Map<String,List<Member>> memberAreaListMap = new HashMap<>();
+        for (Member memberArea:memberAreaList) {
             if (! memberAreaListMap.containsKey(memberArea.getName())) {
-                List<MemberArea> list = new ArrayList<> ();
+                List<Member> list = new ArrayList<> ();
                 list.add(memberArea);
                 memberAreaListMap.put(memberArea.getName(),list);
             } else if(memberAreaListMap.containsKey(memberArea.getName())) {
@@ -86,7 +86,6 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapへの追加に失敗しました。");
             }
         }
-        */
 
         List<MemberTestResult> memberTestList = new ArrayList<>();
         memberTestList.add(new MemberTestResult("かねだ", TestPeriod.P1, 65, 45, 68));
@@ -120,7 +119,7 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 20, 90, 56));
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 48, 92, 64));
 
-        // テスト結果のリストをマップにまとめる
+        // テスト結果のListをMapにまとめる
         Map<String,List<Member>> memberTestListMap = new HashMap<>();
         for (MemberTestResult memberTest:memberTestList) {
             if (! memberTestListMap.containsKey(memberTest.getName())) {
@@ -134,28 +133,45 @@ class ViewMemberInfo {
             }
         }
 
-        // superClass MemberくくりでMapにListの情報をまとめる。
-        // Member型でmemberListの内容をmemberListMapに追加する。
-        Map<String, List<Member>> memberListMap = new HashMap<>();
-        for (MemberProperty member : memberList) {
-            if (!memberListMap.containsKey(member.getName())) {
-                List<Member> list = new ArrayList<>();
-                list.add(member);
-                memberListMap.put(member.getName(), list);
-            } else if (memberListMap.containsKey(member.getName())) {
-                memberListMap.get(member.getName()).add(member);
+        // superClass MemberくくりでMapに各Mapの情報をまとめる。
+        // Member型でmemberListMapの内容をmemberInfoMapに追加する。
+        //  -> 企画倒れっぽい？
+        //   ListをMapに入れるのは、個別のエントリに必要なだけList化して入れている。そのため、対象のエントリを
+        //   MapからListオブジェクトにアクセスして取り出せる。ならばListオブジェクトのネストならいける？
+        //   Mapの場合もオブジェクトとしてMapのValueに入れることは可能だが、上位階層のマップからは
+        //   個別のkeyに結び付いたvalueとしてしか扱えない。いわばテーブルの管理テーブル的な使い方？
+        //   テーブルを同値のkeyでまとめて検索しやすい形式にするのであればフラットなList構造をもった
+        //   Map構造にした方がよさそうか？
+        //   検索のやりやすさとしては、MapオブジェクトをMapのValueに入れた場合、個別にキーを持つことになる。
+        //   上位のMapで持っているキーと下位のMapのキーを合わせる意味合いがあまりないのではないか？
+        //   結びつきが分かればいいので、Map構造からvalueを引き出して書き込んだとしても、そのvalueを持つ
+        //   部分に上位と同じキーを保持させる意味はあまりない。データの冗長という点と、マップのvalueのみを
+        //   取得するならMapオブジェクトではなくListで十分役割を果たせそうな感じ。
+        //   そもそもMapとしての全体オブジェクトを取得する方法はあるが、実はkey,valueのペアを一気にとってくる
+        //   手法自体がJavaの標準の仕組みにはなさそう。keyはあらかじめ指定するので確かに必要性はないが、
+        //   key:valueのペアをオブジェクトとして扱っていない、Mapの中の一要素＋keyとなるので、
+        //   もともと扱わないのかもしれない。それともMap.entry(k,v)でとってくる？
+        //   もう一つの問題として、Mapの場合valueに指定できるオブジェクト型が一つに統一される。
+        //   そのため、valueにListもMapも同じネスト階層として書き込むことができない。(型チェックではじかれる。)
+        Map<String, Map<String,List<Member>>> memberInfoMap = new HashMap<>();
+
+        for (String member : memberListMap.keySet()) {
+            if (!memberInfoMap.containsKey(member)) {
+                memberInfoMap.put(member,menberListMap);
+            } else if () {
+                memberInfoMap.get(member).;
             } else {
                 System.out.println("Error : Mapに属性情報を追加できません。");
             }
         }
-        // Member型でmemberAreaの内容をmemberListMapに追加する。
+        // Member型でmemberAreaの内容をmemberInfoMapに追加する。
         for (MemberArea memberArea : memberAreaList) {
             if (!memberListMap.containsKey(memberArea.getName())) {
                 List<Member> listArea = new ArrayList<>();
                 listArea.add(memberArea);
-                memberListMap.put(memberArea.getName(), listArea);
+                memberInfoMap.put(memberArea.getName(), listArea);
             } else if (memberListMap.containsKey(memberArea.getName())) {
-                memberListMap.get(memberArea.getName()).add(memberArea);
+                memberInfoMap.get(memberArea.getName()).add(memberArea);
             } else {
                 System.out.println("Error : Mapに地域情報を追加できません。");
             }
@@ -163,13 +179,16 @@ class ViewMemberInfo {
 
         // Member型になっているmemberListMapに、memberTestListMapの内容を追加したい。
         // keyはnameであわせて、Mapとしてまとめたテストの得点結果の内容をとってきて追加したい。
-        for (String memberScore : memberTestListMap.keySet()) {
-            if (!memberListMap.containsKey(memberScore)) {
+        // keyの値を取得する際にmemberListMapにあるかを判定する値を取得する際に、memberTestListMapから
+        // 取得する必要があり、対象がMapなのでkeySetでkeyの塊を取得するようにした。
+        for (String member : memberTestListMap.keySet()) {
+            System.out.println(member);
+            if (!memberListMap.containsKey(member)) {
                 List<List<Member>> listTest = new ArrayList<> ();
-                listTest.add(memberTestListMap.get(memberScore));
-                memberListMap.put(memberScore,listTest);
-            } else if (memberListMap.containsKey(memberScore.getKey())) {
-                memberListMap.get(memberScore.getKey()).add(((List<List<Member>>) memberScore.getValue()));
+                listTest.add(memberTestListMap.get(member));
+                memberInfoMap.put(member,listTest);
+            } else if (memberListMap.containsKey(member.getKey())) {
+                memberInfoMap.get(member.getKey()).add(((List<List<Member>>) member.getValue()));
             } else {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }

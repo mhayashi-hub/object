@@ -98,7 +98,9 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("やまだ", TestPeriod.P1, 46, 34, 22));
         memberTestList.add(new MemberTestResult("ささもと", TestPeriod.P1, 57, 55, 42));
         memberTestList.add(new MemberTestResult("ささき", TestPeriod.P1, 75, 68, 94));
+        memberTestList.add(new MemberTestResult("ささき", TestPeriod.P2, 91, 70, 92));
         memberTestList.add(new MemberTestResult("すずき", TestPeriod.P1, 19, 60, 74));
+        memberTestList.add(new MemberTestResult("すずき", TestPeriod.P4, 56, 64, 89));
         memberTestList.add(new MemberTestResult("しろた", TestPeriod.P1, 73, 80, 76));
         memberTestList.add(new MemberTestResult("かわもと", TestPeriod.P1, 68, 49, 35));
         memberTestList.add(new MemberTestResult("かまた", TestPeriod.P1, 62, 75, 89));
@@ -114,8 +116,10 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("きりや", TestPeriod.P1, 24, 57, 42));
         memberTestList.add(new MemberTestResult("しぶや", TestPeriod.P1, 79, 76, 88));
         memberTestList.add(new MemberTestResult("たまい", TestPeriod.P1, 58, 47, 92));
+        memberTestList.add(new MemberTestResult("たまい", TestPeriod.P2, 65, 52, 90));
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 20, 90, 56));
-        /*
+        memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 48, 92, 64));
+
         // テスト結果のリストをマップにまとめる
         Map<String,List<MemberTestResult>> memberTestListMap = new HashMap<>();
         for (MemberTestResult member:memberTestList) {
@@ -126,10 +130,10 @@ class ViewMemberInfo {
             } else if (memberTestListMap.containsKey(member.getName())) {
                 memberTestListMap.get(member.getName()).add(member);
             } else {
-                System.out.println("Error ; Mapに追加できません。");
+                System.out.println("Error ; テスト特典情報のMapにテスト結果を追加できません。");
             }
         }
-        */
+
         // superClass MemberくくりでMapにListの情報をまとめる。
         Map<String, List<Member>> memberListMap = new HashMap<>();
         for (MemberProperty member : memberList) {
@@ -154,13 +158,11 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapに地域情報を追加できません。");
             }
         }
-        for (MemberTestResult memberScore : memberTestList) {
-            if (!memberListMap.containsKey(memberScore.getName())) {
-                List<Member> listScore = new ArrayList<>();
-                listScore.add(memberScore);
-                memberListMap.put(memberScore.getName(), listScore);
-            } else if (memberListMap.containsKey(memberScore.getName())) {
-                memberListMap.get(memberScore.getName()).add(memberScore);
+        for (Map.Entry memberScore : memberTestListMap.entrySet()) {
+            if (!memberListMap.containsKey(memberScore.getKey())) {
+                memberListMap.put(((String) memberScore.getKey()), ((List<Member>) memberScore.getValue()));
+            } else if (memberListMap.containsKey(memberScore.getKey())) {
+                memberListMap.get(memberScore.getKey()).add(((Member) memberScore));
             } else {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }

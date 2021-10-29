@@ -121,10 +121,10 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 48, 92, 64));
 
         // テスト結果のリストをマップにまとめる
-        Map<String,List<MemberTestResult>> memberTestListMap = new HashMap<>();
+        Map<String,List<Member>> memberTestListMap = new HashMap<>();
         for (MemberTestResult memberTest:memberTestList) {
             if (! memberTestListMap.containsKey(memberTest.getName())) {
-                List<MemberTestResult> list = new ArrayList<> ();
+                List<Member> list = new ArrayList<> ();
                 list.add(memberTest);
                 memberTestListMap.put(memberTest.getName(),list);
             } else if (memberTestListMap.containsKey(memberTest.getName())) {
@@ -135,6 +135,7 @@ class ViewMemberInfo {
         }
 
         // superClass MemberくくりでMapにListの情報をまとめる。
+        // Member型でmemberListの内容をmemberListMapに追加する。
         Map<String, List<Member>> memberListMap = new HashMap<>();
         for (MemberProperty member : memberList) {
             if (!memberListMap.containsKey(member.getName())) {
@@ -147,6 +148,7 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapに属性情報を追加できません。");
             }
         }
+        // Member型でmemberAreaの内容をmemberListMapに追加する。
         for (MemberArea memberArea : memberAreaList) {
             if (!memberListMap.containsKey(memberArea.getName())) {
                 List<Member> listArea = new ArrayList<>();
@@ -158,17 +160,21 @@ class ViewMemberInfo {
                 System.out.println("Error : Mapに地域情報を追加できません。");
             }
         }
-        for (Map.Entry memberScore : memberTestListMap.entrySet()) {
-            if (!memberListMap.containsKey(memberScore.getKey())) {
+
+        // Member型になっているmemberListMapに、memberTestListMapの内容を追加したい。
+        // keyはnameであわせて、Mapとしてまとめたテストの得点結果の内容をとってきて追加したい。
+        for (String memberScore : memberTestListMap.keySet()) {
+            if (!memberListMap.containsKey(memberScore)) {
                 List<List<Member>> listTest = new ArrayList<> ();
-                listTest.add(((List<Member>) memberScore.getValue()));
-                memberListMap.put(((String) memberScore.getKey()),((List<Member>) memberScore.getValue()));
+                listTest.add(memberTestListMap.get(memberScore));
+                memberListMap.put(memberScore,listTest);
             } else if (memberListMap.containsKey(memberScore.getKey())) {
                 memberListMap.get(memberScore.getKey()).add(((List<List<Member>>) memberScore.getValue()));
             } else {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }
         }
+
         // 共通キーnameを使って名前をkeyとしてvalueにListをさらにArrayListを作って書き込んでみた。
         // Valueで帰ってくるオブジェクトはArrayListなのは確認済み。
         // List内部のListの値をどうやって取得、検索、操作するのかを確認したい。

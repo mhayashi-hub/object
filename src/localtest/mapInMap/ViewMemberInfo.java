@@ -122,13 +122,13 @@ class ViewMemberInfo {
 
         // テスト結果のリストをマップにまとめる
         Map<String,List<MemberTestResult>> memberTestListMap = new HashMap<>();
-        for (MemberTestResult member:memberTestList) {
-            if (! memberTestListMap.containsKey(member.getName())) {
+        for (MemberTestResult memberTest:memberTestList) {
+            if (! memberTestListMap.containsKey(memberTest.getName())) {
                 List<MemberTestResult> list = new ArrayList<> ();
-                list.add(member);
-                memberTestListMap.put(member.getName(),list);
-            } else if (memberTestListMap.containsKey(member.getName())) {
-                memberTestListMap.get(member.getName()).add(member);
+                list.add(memberTest);
+                memberTestListMap.put(memberTest.getName(),list);
+            } else if (memberTestListMap.containsKey(memberTest.getName())) {
+                memberTestListMap.get(memberTest.getName()).add(memberTest);
             } else {
                 System.out.println("Error ; テスト特典情報のMapにテスト結果を追加できません。");
             }
@@ -160,9 +160,11 @@ class ViewMemberInfo {
         }
         for (Map.Entry memberScore : memberTestListMap.entrySet()) {
             if (!memberListMap.containsKey(memberScore.getKey())) {
-                memberListMap.put(((String) memberScore.getKey()), ((List<Member>) memberScore.getValue()));
+                List<List<Member>> listTest = new ArrayList<> ();
+                listTest.add(((List<Member>) memberScore.getValue()));
+                memberListMap.put(((String) memberScore.getKey()),((List<Member>) memberScore.getValue()));
             } else if (memberListMap.containsKey(memberScore.getKey())) {
-                memberListMap.get(memberScore.getKey()).add(((Member) memberScore));
+                memberListMap.get(memberScore.getKey()).add(((List<List<Member>>) memberScore.getValue()));
             } else {
                 System.out.println("Error : Mapにテストの得点情報を追加できません。");
             }

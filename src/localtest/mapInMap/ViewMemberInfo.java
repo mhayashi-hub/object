@@ -36,6 +36,7 @@ class ViewMemberInfo {
         memberList.add(new MemberProperty("さかい", Gender.WOMEN, 20));
 
         // member情報をMapにまとめる。
+        // MapにListオブジェクトを入れる。Mapのためエントリ新設の場合puで追加。
         Map<String,List<Member>> memberListMap = new HashMap<>();
         for (Member member:memberList) {
             if (! memberListMap.containsKey(member.getName())) {
@@ -152,8 +153,44 @@ class ViewMemberInfo {
         //   key:valueのペアをオブジェクトとして扱っていない、Mapの中の一要素＋keyとなるので、
         //   もともと扱わないのかもしれない。それともMap.entry(k,v)でとってくる？
         //   もう一つの問題として、Mapの場合valueに指定できるオブジェクト型が一つに統一される。
-        //   そのため、valueにListもMapも同じネスト階層として書き込むことができない。(型チェックではじかれる。)
-        Map<String, Map<String,List<Member>>> memberInfoMap = new HashMap<>();
+        //   そのため、valueにListもMapも同じネスト階層のオブジェクトとして書き込むことができない。
+        //   書き込める型はMap宣言時点で決まるかワイルドカードで後で指定させるか？
+        //   (普通のやり方では型チェックではじかれる。)
+        // Map<String, Map<String,List<Member>>> memberInfoMap = new HashMap<>();
+        Map<String,List<Map<String,List<Member>>>> memberInfoMap = new HashMap<>();
+        for (String member: memberListMap.keySet()) {
+            if (! memberInfoMap.containsKey(member)) {
+                List<Map<String,List<Member>>> listInfo = new ArrayList<> ();
+                listInfo.add((Map<String, List<Member>>) memberListMap.get(member));
+                memberInfoMap.put(member, listInfo);
+            } else if (memberInfoMap.containsKey(member)) {
+                memberInfoMap.get(member).add((Map<String, List<Member>>) memberListMap.get(member));
+            } else {
+                System.out.println("Error : memberInfoMapに属性情報を追加できません。");
+            }
+        }
+        for (String member:memberAreaListMap.keySet()) {
+            if (! memberInfoMap.containsKey(member)) {
+                List<Map<String,List<Member>>> listArea = new ArrayList<> ();
+                listArea.add((Map<String, List<Member>>) memberAreaListMap.get(member));
+                memberInfoMap.put(member, listArea);
+            } else if (memberInfoMap.containsKey(member)) {
+                memberInfoMap.get(member).add((Map<String, List<Member>>) memberAreaListMap.get(member));
+            } else {
+                System.out.println("Error : memberInfoMapに地域情報を追加できません。");
+            }
+        }
+        for (String member:memberTestListMap.keySet()) {
+            if (! memberInfoMap.containsKey(member)) {
+                List<Map<String,List<Member>>> listTestResult = new ArrayList<> ();
+                listTestResult.add((Map<String, List<Member>>) memberTestListMap.get(member));
+                memberInfoMap.put(member, listTestResult);
+            } else if (memberInfoMap.containsKey(member)) {
+                memberInfoMap.get(member).add((Map<String, List<Member>>) memberTestListMap.get(member));
+            } else {
+                System.out.println("Error : memberInfoMapにテスト成績情報を追加できません。");
+            }
+        }
         /*
         //for (String member : memberListMap.keySet()) {
             if (!memberInfoMap.containsKey(member)) {
@@ -213,7 +250,7 @@ class ViewMemberInfo {
         }
          */
         // int i;
-        for (Map.Entry entry : memberListMap.entrySet()) {
+        for (Map.Entry entry : memberInfoMap.entrySet()) {
             System.out.println(entry);
             System.out.println(entry.getKey());
             for (Member element : ((List<Member>) entry.getValue())) {

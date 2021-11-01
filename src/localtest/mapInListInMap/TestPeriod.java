@@ -1,4 +1,4 @@
-package localtest.mapInMap;
+package localtest.mapInListInMap;
 
 public enum TestPeriod {
     P1("一期"),

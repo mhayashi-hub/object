@@ -1,4 +1,4 @@
-package localtest.mapInMap;
+package localtest.mapInListInMap;
 
 import ex.person2.BirthPlace;
 

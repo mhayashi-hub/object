@@ -1,4 +1,4 @@
-package localtest.mapInMap;
+package localtest.mapInListInMap;
 
 public class Member implements IfGetInfo {
     protected String name;

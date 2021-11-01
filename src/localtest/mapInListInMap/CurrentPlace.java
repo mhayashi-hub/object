@@ -1,4 +1,4 @@
-package localtest.mapInMap;
+package localtest.mapInListInMap;
 
 public enum CurrentPlace {
     HOKKAIDO("北海道"),

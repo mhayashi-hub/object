@@ -1,4 +1,4 @@
-package localtest.mapInMap;
+package localtest.mapInListInMap;
 
 class MemberTestResult extends Member {
     private TestPeriod testPeriod;

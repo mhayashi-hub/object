@@ -10,6 +10,9 @@ import java.util.Map;
 
 class ViewMemberInfo {
     public static void main(String[] args) {
+        // mapの中の値にList or Mapを入れる試行。
+        // mapのvalueにはオブジェクトも入れられるが、Mapの値にMapを割り当てられるのか、という
+        // 思い付きから試行してみた。
         // generate List for Member
         List<MemberProperty> memberList = new ArrayList<>();
         memberList.add(new MemberProperty("かねだ", Gender.MEN, 25));
@@ -36,7 +39,7 @@ class ViewMemberInfo {
         memberList.add(new MemberProperty("さかい", Gender.WOMEN, 20));
 
         // member情報をMapにまとめる。
-        // MapにListオブジェクトを入れる。Mapのためエントリ新設の場合puで追加。
+        // MapにListオブジェクトを入れる。Mapのためエントリ新設の場合putで追加。
         Map<String,List<Member>> memberListMap = new HashMap<>();
         for (Member member:memberList) {
             if (! memberListMap.containsKey(member.getName())) {
@@ -130,9 +133,10 @@ class ViewMemberInfo {
             } else if (memberTestListMap.containsKey(memberTest.getName())) {
                 memberTestListMap.get(memberTest.getName()).add(memberTest);
             } else {
-                System.out.println("Error ; テスト特典情報のMapにテスト結果を追加できません。");
+                System.out.println("Error ; テスト得点情報のMapにテスト結果を追加できません。");
             }
         }
+        System.out.println(memberTestListMap.get("たかはし"));
 
         // superClass MemberくくりでMapに各Mapの情報をまとめる。
         // Member型でmemberListMapの内容をmemberInfoMapに追加する。
@@ -156,12 +160,17 @@ class ViewMemberInfo {
         //   そのため、valueにListもMapも同じネスト階層のオブジェクトとして書き込むことができない。
         //   書き込める型はMap宣言時点で決まるかワイルドカードで後で指定させるか？
         //   (普通のやり方では型チェックではじかれる。)
+        //   -> 混乱しているので整理する。
+        //      現在の試行では、Mapに一度まとめたListの内容を取り出して、その値をさらにMapに書き込みたい、という方針のため、
+        //      Mapの中にMapオブジェクトを書き込むわけではなくなってしまっている。
+        //      とりあえず企画倒れなのでこれについては作業を止める。
+        //      この試行で思いついた疑問：Mapから取り出した値はキャスト等に制限がつくのか？
         // Map<String, Map<String,List<Member>>> memberInfoMap = new HashMap<>();
         Map<String,List<Map<String,List<Member>>>> memberInfoMap = new HashMap<>();
         for (String member: memberListMap.keySet()) {
             if (! memberInfoMap.containsKey(member)) {
                 List<Map<String,List<Member>>> listInfo = new ArrayList<> ();
-                listInfo.add((Map<String, List<Member>>) memberListMap.get(member));
+                listInfo.add(memberListMap.get(member));
                 memberInfoMap.put(member, listInfo);
             } else if (memberInfoMap.containsKey(member)) {
                 memberInfoMap.get(member).add((Map<String, List<Member>>) memberListMap.get(member));

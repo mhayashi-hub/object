@@ -91,23 +91,31 @@ class ViewMemberInfo {
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 20, 90, 56));
         memberTestList.add(new MemberTestResult("さかい", TestPeriod.P1, 48, 92, 64));
 
-        //
-        Map <String, Map<TestPeriod, List<MemberTestResult>>> memberTestPeriodMap = new HashMap<> ();
+        //  当初の仕様想定と実際に実装してみた構造が異なる？ 一度設計仕様を再検証した方が良いかも？
+        //  各人のテスト結果のまとめで作りたい構造、特性はなにか？
+        //  -> 名前をキーにすること、各人ごとにテスト期間をキーとして成績を取り出せること。それだけでよい。
+        //     つまりは検索のキーとして使えるものに各人名前＋テスト期間の組み合わせで検索できれば良い。
+        //     -> 検索だけなら、各人の成績でcontainsで対象期間の有無をチェックし、対象期間の見つかった位置から
+        //        indexOfで4値(Period、国語、数学、英語)を取り出せば終わるか？
+        //  -> 整理結果：TestPeriodで分けたマップを作る必要性は薄い。テスト期間と成績をセットで並べてリストに格納して、
+        //     indexOfでテスト期間を検索させ、そこから4個のデータを取得するので結果をテスト期間ごとに取り出せる。
+        //     オブジェクトインスタンスごと取り出すかキャストすることでクラスメソッドで個別成績を取得するのも可能。
+        Map <String, Map<TestPeriod, List<MemberTestResult>>> memberTestMap = new HashMap<> ();
         for (MemberTestResult member:memberTestList) {
-            if (! memberTestPeriodMap.containsKey(member.getName())) {
-                Map <TestPeriod, List<MemberTestResult>> memberTestResultPeriodMap = new HashMap<> ();
-                memberTestPeriodMap.put(member.getName(), memberTestResultPeriodMap);
-                if (! memberTestResultPeriodMap.containsKey(member.getTestPeriod())) {
+            if (! memberTestMap.containsKey(member.getName())) {
+                Map <TestPeriod, List<MemberTestResult>> memberTestPeriodMap = new HashMap<> ();
+                memberTestMap.put(member.getName(), memberTestPeriodMap);
+                if (! memberTestPeriodMap.containsKey(member.getTestPeriod())) {
                     List<MemberTestResult> list = new ArrayList<> ();
                     list.add(member);
-                    memberTestResultPeriodMap.put(member.getTestPeriod(), list);
-                } else if (memberTestResultPeriodMap.containsKey(member.getTestPeriod())) {
-                    memberTestResultPeriodMap.get(member.getName()).add(member);
+                    memberTestPeriodMap.put(member.getTestPeriod(), list);
+                } else if (memberTestPeriodMap.containsKey(member.getTestPeriod())) {
+                    memberTestPeriodMap.get(member.getName()).add(member);
                 } else {
-                    System.out.println("Error : テスト期間での分類作業ができませんでした。");
+                    System.out.println("Error : テスト期間での分類作業ができません。");
                 }
-            } else if (memberTestPeriodMap.containsKey(member.getName())) {
-                memberTestPeriodMap.get(member.getName()).get((member.getTestPeriod())).add(member);
+            } else if (memberTestMap.containsKey(member.getName())) {
+                memberTestMap.get(member.getName()).get((member.getTestPeriod())).add(member);
             } else {
                 System.out.println("Error : テスト成績をまとめた情報が作成できませんでした。");
             }

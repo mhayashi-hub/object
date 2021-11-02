@@ -100,31 +100,59 @@ class ViewMemberInfo {
         //  -> 整理結果：TestPeriodで分けたマップを作る必要性は薄い。テスト期間と成績をセットで並べてリストに格納して、
         //     indexOfでテスト期間を検索させ、そこから4個のデータを取得するので結果をテスト期間ごとに取り出せる。
         //     オブジェクトインスタンスごと取り出すかキャストすることでクラスメソッドで個別成績を取得するのも可能。
-        Map <String, Map<TestPeriod, List<MemberTestResult>>> memberTestMap = new HashMap<> ();
-        for (MemberTestResult member:memberTestList) {
-            if (! memberTestMap.containsKey(member.getName())) {
-                Map <TestPeriod, List<MemberTestResult>> memberTestPeriodMap = new HashMap<> ();
-                memberTestMap.put(member.getName(), memberTestPeriodMap);
-                if (! memberTestPeriodMap.containsKey(member.getTestPeriod())) {
-                    List<MemberTestResult> list = new ArrayList<> ();
-                    list.add(member);
-                    memberTestPeriodMap.put(member.getTestPeriod(), list);
-                } else if (memberTestPeriodMap.containsKey(member.getTestPeriod())) {
-                    memberTestPeriodMap.get(member.getName()).add(member);
-                } else {
-                    System.out.println("Error : テスト期間での分類作業ができません。");
-                }
-            } else if (memberTestMap.containsKey(member.getName())) {
-                memberTestMap.get(member.getName()).get((member.getTestPeriod())).add(member);
+
+        //  データをまとめるマップを準備
+        Map <String, List<Member>> memberInfoMap = new HashMap<> ();
+
+        // memberListの情報を追加
+        for (Member member:memberList) {
+            if (! memberInfoMap.containsKey(member.getName())) {
+                List<Member> list = new ArrayList<> ();
+                list.add(member);
+                memberInfoMap.put(member.getName(), list);
+            } else if (memberInfoMap.containsKey(member.getName())) {
+                memberInfoMap.get(member.getName()).add(member);
             } else {
-                System.out.println("Error : テスト成績をまとめた情報が作成できませんでした。");
+                System.out.println("Error : メンバー情報の追加できませんでした。");
             }
         }
-
-
-        // 処理用まとめMapを作成
-        Map<String, List<Member>> memberInfoMap = new HashMap<> ();
-
+        // memberAreaListの情報を追加
+        for (Member memberArea:memberAreaList) {
+            if (! memberInfoMap.containsKey(memberArea.getName())) {
+                List<Member> listArea = new ArrayList<> ();
+                listArea.add(memberArea);
+                memberInfoMap.put(memberArea.getName(), listArea);
+            } else if (memberInfoMap.containsKey(memberArea.getName())) {
+                memberInfoMap.get(memberArea.getName()).add(memberArea);
+            } else {
+                System.out.println("Error : メンバーの地域情報の追加ができませんでした。");
+            }
+        }
+        // memberTestListの情報を追加
+        for (Member memberTest:memberTestList) {
+            if (! memberInfoMap.containsKey(memberTest.getName())) {
+                List<Member> listTest = new ArrayList<> ();
+                listTest.add(memberTest);
+                memberInfoMap.put(memberTest.getName(), listTest);
+            } else if (memberInfoMap.containsKey(memberTest.getName())) {
+                memberInfoMap.get(memberTest.getName()).add(memberTest);
+            } else {
+                System.out.println("Error : メンバーの成績情報の追加ができませんでした。");
+            }
+        }
+        // 出力テスト
+        // System.out.println(memberInfoMap);
+        for (String member:memberInfoMap.keySet()) {
+            System.out.println(member+": ");
+            for (Member memberContent:memberInfoMap.get(member)) {
+                System.out.println(" " + (memberContent.getInfo()));
+            }
+        }
+        // 処理パターンメモ：
+        // 性別で分類してデータをまとめる。
+        // 出身地、所在地で聞る指定データをまとめる。
+        // テスト時期でデータをまとめる。テスト時期ごとでの点数の合計、個人の平均点、科目ごと平均点を出す。
+        // テスト時期を通しての平均点を科目ごとに出す。
 
     }
 }

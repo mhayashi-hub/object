@@ -109,6 +109,30 @@ class RegexSample {
         String pattern12 = "^[0-9a-z]{5}$";
         // 数字と英字五桁、先頭から末尾までの指定。
         System.out.println("32432".matches(pattern12));
+        System.out.println("324d3".matches(pattern12));
+        System.out.println("3ed32".matches(pattern12));
+        System.out.println("32432a".matches(pattern12));
+        System.out.println("a32432".matches(pattern12));
+        System.out.println("abdcs".matches(pattern12));
+        System.out.println("");
+
+        String pattern13 = "^[0-9]{3}-[0-9]{4}$";
+        // 先頭から末尾までの数字のみ、三桁+ハイフン"-"+四桁(郵便番号方式)での指定。
+        System.out.println("324-3242".matches(pattern13));
+        System.out.println("000-1210".matches(pattern13));
+        System.out.println("93121-12".matches(pattern13));
+        System.out.println("9903-10".matches(pattern13));
+        System.out.println("0O0-1B90".matches(pattern13));
+        System.out.println("");
+
+        String pattern14 = "a\\.";
+        // 先頭から末尾までの二文字、ドット"."を正規表現パターンではなく文字として検索する場合の(エスケープ)指定。
+        System.out.println("ab".matches(pattern14));
+        System.out.println("a.".matches(pattern14));
+        System.out.println("a,".matches(pattern14));
+        System.out.println("a:".matches(pattern14));
+        System.out.println("b.".matches(pattern14));
+        System.out.println("");
 
     }
 }

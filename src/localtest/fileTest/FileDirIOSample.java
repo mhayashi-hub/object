@@ -12,6 +12,8 @@ import java.util.Date;
 class FileDirIOSample {
     public static void main(String[] args) {
         // NIO2でファイルの存在確認を実施するにはFiles.existsやnotExistsを使う。
+        // ディレクトリはFilesがDirectryに代わるだけでほぼ同じ処理。
+        // ただし再帰的な削除はできそうにないので自前で処理してディレクトリ内のファイルを掃除してから削除の必要がありそう。
         // ちなみにJava環境ではカレントディレクトリ相当の情報は存在しないし規定されていない。
         // (ソース作成やプロジェクト作成ディレクトリなどを相対パスとして取得できないし、システムに持っていく際に
         //  そのような手法は危険なのでやらない方がいい、ということかもしれない。)
@@ -73,6 +75,8 @@ class FileDirIOSample {
             e.printStackTrace();
         }
         // ファイルの作成、更新日時などの属性情報を取得する機能のテスト。
+        // try catchブロックで値を代入するやり方なので初期化漏れが発生する。このやり方ではまずエラーが消せない。
+        // 元からNIO2のファイル操作はあまりよろしくないのでサンプル作成と試行だけにとどめておくべきか。
         BasicFileAttributes baseAttribute1;
         try { baseAttribute1 = Files.readAttributes(filePath1,BasicFileAttributes.class);
             System.out.println(baseAttribute1.creationTime());

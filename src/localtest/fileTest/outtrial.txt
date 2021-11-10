@@ -1,0 +1,6 @@
+赤
+青
+黄
+red
+green
+yellow

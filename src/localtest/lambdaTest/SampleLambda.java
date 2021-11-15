@@ -1,9 +1,5 @@
 package localtest.lambdaTest;
 
-@FunctionalInterface
-interface Color2 extends ColorOut1 {
-}
-
 class SampleLambda {
     public static void main(String[] args) {
         // Color2 c2 = (String a) -> {return a +" です。";};
@@ -12,8 +8,8 @@ class SampleLambda {
         // Color2 c2 = (a) -> {return a +" です。";};
         // さらに引数が一つのみの場合、()自体を省略して書ける。
         // Color2 c2 = a -> {return a +" です。";};
-        // さらに、{}とreturnも定型句のため省略しできる。
-        Color2 c2 = a ->  a +" です。";
+        // さらに、{}とreturnもメソッド記述の定型句のため省略できる。
+        Color1 c2 = a ->  a +" です。";
 
         System.out.println(c2.write1("青"));
     }

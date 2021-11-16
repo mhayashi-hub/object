@@ -75,6 +75,13 @@ class IntStreamSample {
         // 個別要素を扱うことが難しくなる？連結は即時ではなく遅延結合っぽいので一度フラット化してきれいな
         // IntStreamに変換した方が良い？
         // c1.forEach(System.out::println);
+        // 結合後にflatMapを使ってみる。
+        IntStream c1a = IntStream.concat(IntStream.of(a),IntStream.of(bb)).flatMap(t -> IntStream.of(t));
+        System.out.println(c1a.sum());
+        System.out.println();
+        // flatMapで変換してもやっぱり要素ごとの出力はできなくなっている。何故？
+        // c1a.forEach(System.out::println);
+
         // StreamからIntStreamへのマップによる変換のテスト。
         // Integerのリスト作成
         List<Integer> numlist1 = new ArrayList<>();
@@ -88,6 +95,10 @@ class IntStreamSample {
         // StreamからIntStreamへのマッピング。
         IntStream intStream1 = stream1.mapToInt(i -> i);
         intStream1.forEach(System.out::println);
+        // IntegerクラスのintValueメソッド参照でも変換可能らしいと解説を見たが、例外が出る。
+        // IntStream intStream1a = stream1.mapToInt(Integer::intValue);
+        // intStream1a.forEach(System.out::println);
+        // flatMapの使い方、実際の仕様がよくわからない。変換処理にラムダ式を指定する場合の型変換ができず使用できない。
         // StreamからマッピングしたIntStreamインスタンスでsumを取得しようとしたら例外。意味不明。
         // System.out.println(intStream1.sum());
         System.out.println();
@@ -100,9 +111,10 @@ class IntStreamSample {
         System.out.println();
         // どうもIntStreamを連結した後にsumとかを行うと例外発生するようだ。
         // 扱いが変になっている？フラットなIntStreamにしてないから？いずれにしても仕様不明だし結果が不安定すぎて怖い。
+        // ↑ flatMapで処理しても結局例外が出るのは変わらない。参照の構造がおかしいのかライブラリ側がバグっているのか。
         // IntStreamを結合したIntStreamではsumメソッドは例外を出し続けている。意味不明。
         // int ia3 = is3.sum();
-        System.out.println(is3.sum());
+        // System.out.println(is3.sum());
         // System.out.println(ia3);
 
         // IntStreamからStreamへの変換テスト。
@@ -111,5 +123,6 @@ class IntStreamSample {
         // stream2.forEach(System.out::println);
         // Streamでのconcatは必要？concatした後のメソッド処理やconcat自体で問題が発生する可能性がある。
         // Streamで二つ以上の入力を与えるくらいならListやMapにまとめた後に単体でStream処理した方がよさそう。
+        // 複数のStreamを生成してまとめて処理する用途があんまり思いつかない・・・。
     }
 }

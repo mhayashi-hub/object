@@ -100,13 +100,16 @@ class IntStreamSample {
         System.out.println();
         // どうもIntStreamを連結した後にsumとかを行うと例外発生するようだ。
         // 扱いが変になっている？フラットなIntStreamにしてないから？いずれにしても仕様不明だし結果が不安定すぎて怖い。
-        // System.out.println(is3.sum());
-        System.out.println();
+        // IntStreamを結合したIntStreamではsumメソッドは例外を出し続けている。意味不明。
+        // int ia3 = is3.sum();
+        System.out.println(is3.sum());
+        // System.out.println(ia3);
 
         // IntStreamからStreamへの変換テスト。
+        // IntStreamをboxedメソッドでStreamインスタンスに変換する場合も例外が発生。わけがわからない。
         // Stream<Integer> stream2 = is1.boxed();
-        Stream<Integer> stream2 = is1.boxed();
-        stream2.forEach(System.out::println);
-
+        // stream2.forEach(System.out::println);
+        // Streamでのconcatは必要？concatした後のメソッド処理やconcat自体で問題が発生する可能性がある。
+        // Streamで二つ以上の入力を与えるくらいならListやMapにまとめた後に単体でStream処理した方がよさそう。
     }
 }

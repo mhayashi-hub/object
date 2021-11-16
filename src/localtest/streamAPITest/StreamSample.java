@@ -132,6 +132,9 @@ class StreamSample {
         System.out.println();
         // Stream自体の結合のテスト。concatでいいはず。リストならstream()メソッドでstream化できる。
         Stream.concat(list1.stream(),list2.stream()).forEach(System.out::println);
+        // 結合したStreamをオブジェクトとして表示してみる。
+        System.out.println(Stream.concat(list1.stream(), list2.stream()));
+        // オブジェクト自体は表示可能、なのでこちらはオブジェクトを扱うStreamなので問題はない？
 
     }
 }

@@ -63,8 +63,11 @@ class IntStreamSample {
         // ↑マッピング方法がわからない、というか結合しただけでも例外が発生したりする。
         // Streamって生成後は結合もできるがそういう機能を使わない方がいい？扱いが何かおかしい感じ？
         // 下記はなぜかconcatで結合しただけで例外が発生する。わけがわからない。
-        IntStream c1 = IntStream.concat(ab,IntStream.of(bb));
+        // IntStream c1 = IntStream.concat(ab,IntStream.of(bb));
+        // 下記の記述(どちらもIntStream.ofで単一の数値or数値の複数要素からIntStreamを作成)では例外は出ない。なぜ？
+        IntStream c1 = IntStream.concat(IntStream.of(a,a),IntStream.of(bb));
         System.out.println(c1.sum());
+        // ただし結合済みのc1 IntStreamインスタンスの要素を列挙して出力させようとすると例外になる。意味不明。
         // c1.forEach(System.out::println);
         // IntStreamを結合したはずなのだけどなぜかforEachで要素表示させようとすると例外を出す。なぜか？
         // 結合の際に一つが要素一つのみのIntStreamだと問題になるのか？
@@ -82,12 +85,28 @@ class IntStreamSample {
         numlist1.add(6);
         // Integerのストリーム作成。.stream()で生成できる。
         Stream<Integer> stream1 = numlist1.stream();
-        // IntStreamへのマッピング。
+        // StreamからIntStreamへのマッピング。
         IntStream intStream1 = stream1.mapToInt(i -> i);
         intStream1.forEach(System.out::println);
-        System.out.println(intStream1.sum());
+        // StreamからマッピングしたIntStreamインスタンスでsumを取得しようとしたら例外。意味不明。
+        // System.out.println(intStream1.sum());
+        System.out.println();
 
+        // IntStreamの結合のテストやり直し。
+        IntStream is1 = IntStream.of(1,2,3);
+        IntStream is2 = IntStream.of(4,5,6);
+        IntStream is3 = IntStream.concat(is1, is2);
+        is3.forEach(System.out::println);
+        System.out.println();
+        // どうもIntStreamを連結した後にsumとかを行うと例外発生するようだ。
+        // 扱いが変になっている？フラットなIntStreamにしてないから？いずれにしても仕様不明だし結果が不安定すぎて怖い。
+        // System.out.println(is3.sum());
+        System.out.println();
 
+        // IntStreamからStreamへの変換テスト。
+        // Stream<Integer> stream2 = is1.boxed();
+        Stream<Integer> stream2 = is1.boxed();
+        stream2.forEach(System.out::println);
 
     }
 }

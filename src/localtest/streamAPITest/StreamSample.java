@@ -1,6 +1,8 @@
 package localtest.streamAPITest;
 
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collector;
@@ -86,7 +88,46 @@ class StreamSample {
         System.out.println(list2.stream().map(a -> a + " でした。").collect(Collectors.toList()));
         list2.stream().map(a -> a +" でした。").collect(Collectors.toList()).forEach(System.out::println);
         System.out.println();
-        // filteringはうまく動くサンプルを考え付かないので途中で止めておく。
-        // list2.stream().map(a -> a +" 要素").collect(Collectors.filtering(s -> String::contains("a"))).forEach(System.out::println);
+        // 処理対象を一つ飛ばす(skip)機能のテスト。指定した数値分だけ要素を先頭から除外して処理する。
+        list2.stream().map(a -> a +" 要素").skip(1).forEach(System.out::println);
+        System.out.println();
+        // Collectors.filteringのテスト。書き方が難解すぎてよくわからない。
+        list2.stream().map(a -> a +" 要素").collect(Collectors.filtering(a -> a.contains("a"),Collectors.toList())).forEach(System.out::println);
+        System.out.println();
+        // 全要素の条件一致チェックallMatchのテスト。いわば全要素について指定した条件式をすべて満たすかの判定。
+        // 個別要素の照合と一致チェックではない。
+        // いうなれば全要素の条件判定結果のANDといったところか。
+        System.out.println(list2.stream().allMatch(a -> a != "F"));
+        System.out.println(list2.stream().allMatch(a -> a != "E"));
+        System.out.println();
+        // こっちは他のリストのメソッド、要素と対象のリストの要素の一致をチェックするための手順として作れた。
+        // 照合対象要素をリスト化してcontainsで照合したものだけリストに取り出す、ということができる。
+        // いわばリスト要素個別でのパターンマッチングをして新しいリストにまとめる、出力する、ということが可能。
+        List<String> list3 = list2.stream().distinct().sorted().limit(4).collect(Collectors.toList());
+        list2.stream().collect(Collectors.filtering(a -> list3.contains(a),Collectors.toList())).forEach(System.out::println);
+        System.out.println();
+        // 要素のうち一つでも条件一致するかのチェックanyMatchのテスト。いわば条件一致判定結果のORか。
+        System.out.println(list2.stream().anyMatch(a -> a == "a"));
+        System.out.println(list2.stream().anyMatch(a -> a == "b"));
+        System.out.println();
+        // 一つも条件一致しないかのチェックnoneMatchのテスト。条件一致判定の要素ごとのNANDに相当する。
+        System.out.println(list2.stream().noneMatch(a -> a == "1"));
+        System.out.println(list2.stream().noneMatch(a -> a != "a"));
+        System.out.println();
+        // 並列処理parallelとparallelStreamのテスト。
+        list2.stream().forEach(System.out::println);
+        System.out.println();
+        // parallel処理させると出力順がリストの並びの通りにはならなくなる。
+        list2.parallelStream().forEach(System.out::println);
+        System.out.println();
+        list2.stream().parallel().forEach(System.out::println);
+        System.out.println();
+        // 配列でstreamを使ってみる。
+        // 配列の場合はstreamメソッドが実装されていないのでArraysクラスからstreamを呼び出して引数に配列名を入れる。
+        // あとはstreamAPIの扱いと同じ。
+        String[] colorArray = {"赤","黄","青","萌黄","黄"};
+        System.out.println(Arrays.stream(colorArray).distinct().count());
+        System.out.println(Arrays.stream(colorArray).count());
+        System.out.println();
     }
 }

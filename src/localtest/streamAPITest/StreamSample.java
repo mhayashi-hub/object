@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class StreamSample {
     public static void main(String[] args) {
@@ -129,5 +130,8 @@ class StreamSample {
         System.out.println(Arrays.stream(colorArray).distinct().count());
         System.out.println(Arrays.stream(colorArray).count());
         System.out.println();
+        // Stream自体の結合のテスト。concatでいいはず。リストならstream()メソッドでstream化できる。
+        Stream.concat(list1.stream(),list2.stream()).forEach(System.out::println);
+
     }
 }

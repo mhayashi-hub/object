@@ -104,7 +104,7 @@ class StreamConcatSample {
         // System.out.println(intMergeStream1.min().getAsInt());
         // System.out.println(intMergeStream1.max().getAsInt());
         System.out.println(intMergeStream1.sum());
-        // forEachでなくても最後が消費型のprintln都かの場合はStreamがcloseされるっぽい。
+        // forEachでなくても最後が消費型のprintlnとかの場合はStreamがcloseされるっぽい。
         // 一回だけ処理実行可能、という制限がつくならインスタンス生成してconcatとかはやるだけ無駄が多いし危険な気がする。
 
     }

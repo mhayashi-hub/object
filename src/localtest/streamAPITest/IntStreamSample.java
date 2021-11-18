@@ -10,9 +10,15 @@ class IntStreamSample {
 
     public static void main(String[] args) {
         // IntStreamは要素がintの場合に使える。
+        // Javaではプリミティブ型はオブジェクトとして扱えないので、そのまとまりを扱うためInt,Long,Doubleについては
+        // 通常のStreamとは異なった形式の専用StreamとしてIntStream,LongStream,DoubleStreamを定義しているとのこと。
         // IntStreamでインスタンスを作るテスト。
+        // -> 本来はStreamインスタンスは他のインスタンスの処理のために一時的に生成されるオブジェクトのため、
+        // 単独のインスタンスとして生成することはまずない。
         // IntStreamで配列？リスト的なものを作ってその合計を生成して変数aに代入しているので変数は配列でなくてよい。
         // IntStreamで生成したものは数値のストリームと呼ぶらしい。(配列でもリストでもマップでもないから？)
+        // -> Streamは中間処理中の状態をのぞくpeek()メソッドは存在するが、中間処理の状態を変数に代入して保管などの
+        //    変数代入は一切できない。Stream処理外の変数への代入自体ができない仕組み。結果を代入するしかない。
         // ↑Streamインスタンスとして生成してるからストリームでいいらしい。インスタンスなのでその中のメソッドを呼ぶことが可能。
         // また、IntStreamは配列をofで読み込ませても、Arrays.streamに数字の配列を読み込ませても
         // 数字のストリームとして処理できる。
@@ -31,7 +37,10 @@ class IntStreamSample {
         // rangeClosedで指定した始点から終点までの数値のストリームを生成するテスト。
         int b = IntStream.rangeClosed(1,10).sum();
         System.out.println(b);
-        IntStream.rangeClosed(2,8).forEach(System.out::println);
+        // 処理結果を途中で表示するが終端に全く無関係に動くpeekのテスト。
+        // 終端処理にかかわらず画面出力などに途中の処理状態を出力できる。
+        // ただし意味のある出力になるとは限らない。
+        IntStream.rangeClosed(2,8).peek(System.out::println).forEach(System.out::println);
         System.out.println();
         // rangeとrangeClosedとの比較テスト。
         // rangeだと指定した最終値に到達しない値までを順序数として取り出す。
@@ -41,8 +50,8 @@ class IntStreamSample {
         IntStream.rangeClosed(2,9).forEach(System.out::println);
         System.out.println();
         // iterateは始点、繰り返し実行内容を指定してループ的な繰り返し処理を生成する仕組み。
-        // ただし繰り返し処理を止める指定がないので延々生成しまくる。limit等で生成条件に
-        // あらかじめ上限制限をかけておくほうが良い。
+        // ただし繰り返し処理を止める指定がないので延々生成しまくるので無限ループになる。
+        // 必ずlimit等で生成条件にあらかじめ上限制限をかけておかないとまずい。
         // また、sumメソッドも準備されている。
         System.out.println(IntStream.iterate(2, bi -> bi+2).limit(5).sum());
         System.out.println();
@@ -56,7 +65,7 @@ class IntStreamSample {
         System.out.println(IntStream.iterate(1, c -> c + 2).limit(20).min().getAsInt());
         IntStream.iterate(1,c -> c+2).limit(20).forEach(System.out::println);
         System.out.println();
-        // IntStream自体がインスタンス生成できるクラスなので、IntStreamインスタンスをconcatで結合できる。
+        // IntStream自体がインスタンス生成できるクラスなので、IntStreamインスタンスをconcatメソッドで結合できる。
         // ただし結合したストリームは値ではなくストリームインスタンス同士で、フラットなストリームではないので
         // 扱いが難しい。(両方のストリームが開いたまま、二つのIntのストリームを持ったインスタンスになるため？)
         // 一度フラットなストリームにマッピングしなおした方がいい？

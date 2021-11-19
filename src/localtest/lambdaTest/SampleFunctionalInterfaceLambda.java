@@ -8,16 +8,20 @@ import java.util.function.Supplier;
 class SampleFunctionalInterfaceLambda {
     public static void main(String[] args) {
         // 文字列入力、文字列出力の場合でFunctionインターフェースの場合
-        // ラムダ式を使わないで書く。
-        // Function c1 = new Function () {
-        //     @Override
-        //     public String apply(String a) {
-        //
-        //      return a +" です。";
-        //   }
-        // };
-        // };
-        // 省略せず書く。
+        // ラムダ式を使わないで書く。-> Functionインターフェースの使い方がよくわからない。
+        // 下記の書き方だとapplyをオーバーライドできてないといわれてエラーになる。
+        // また、Functionをクラスとしてインスタンス生成しようとすると怒られる。確かにクラスではないが・・・。
+        // ↑ Functionでインスタンスを生成する記述が少し間違っていた。
+        // Functionクラスでインスタンスを宣言し、その生成にnewとFunctionに引数の型を<>で指定すればよかった。
+        /*
+        Function c1 = new Function<String,String>() {
+            @Override
+            public String apply(String a) {
+             return a +" です。";
+          }
+        };
+         */
+        // ラムダ式でまず省略せず書く。
         // Function<String,String> c1 = (String a) -> {return a +" です。";};
         // 引数一つなので(String a)の部分を省略して書く。
         // Function<String,String> c1 = a -> {return a +" です。";};

@@ -2,6 +2,7 @@ package localtest.lambdaTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 class sortLambda {
@@ -12,6 +13,10 @@ class sortLambda {
         studentList.add(new Student("Tanimoto", 80));
         studentList.add(new Student("Tabata", 55));
 
+        System.out.println(studentList);
+        // streamで書き直してみる。これはStreamにしてその中でソートして出力まで終わらせて閉じるので、元のリストは変更しない。
+        studentList.stream().sorted(Comparator.comparing(Student::getScore)).forEach(System.out::println);
+        // studentListの中身再確認。
         System.out.println(studentList);
         /*
         Collections.sort(studentList, new Comparator<Student>() {
@@ -33,6 +38,7 @@ class sortLambda {
         // 例：list.forEach(System.out::println);
         // 　　の処理を
         // list.forEach(str -> System.out.println(str));と書くことができる。
+        // streamと違ってリストを書き直しているので結果はリスト側に再度保管される。
     }
 }
 

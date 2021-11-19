@@ -16,7 +16,7 @@ class InterfaceFunctionSample {
         for (Integer num:list1) {
             System.out.println(num);
         }
-        /*
+
         List<Integer> list2 = new Function<List<Integer>,List<Integer>>(){
             @Override
             public List<Integer> apply(List<Integer> list2){
@@ -28,14 +28,15 @@ class InterfaceFunctionSample {
         for (Integer num:list2) {
             System.out.println(num +" を出力します。");
         }
-        */
+
         // listの内容をソートする部分をFunctionインターフェースでのlamda式に書き直し。
+        /*
         List<Integer> list2 = (List<Integer> list2) -> {
             Collections.sort(list2);
             return list2;
-        }.apply(list1);
-
+        };
+         */
         // streamのmapでメソッド参照可能にして、 + lambdaで書きなおした場合。
-        list2.stream().sorted().map(s -> s +" を出力します。").forEach(System.out::println);
+        list1.stream().sorted().map(s -> s +" を出力します。").forEach(System.out::println);
     }
 }

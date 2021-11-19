@@ -23,7 +23,33 @@ class InterfacePredicateSample {
         }.test(c1);
         System.out.println(bool1);
 
-        // lambda式記法で書く。-> 書けていない。
+        // メソッド呼び出しと関数型インターフェースの定義の部分を分離して書く。
+        /*
+        Predicate predicateTest = new Predicate<Integer> () {
+            @Override
+            public boolean test(Integer c1) {
+                boolean b2 = false;
+                if (c1 == 1) {
+                    b2 = true;
+                } else {
+                    b2 = false;
+                };
+                return b2;
+            };
+        };
+         */
+        Predicate predicateTest = s -> {
+            boolean b2 = false;
+            if (s == 1) {
+                b2 = true;
+            } else {
+                b2 = false;
+            };
+            return b2;
+        };
+        boolean bool2 = predicateTest.test(c1);
+        System.out.println(bool2);
+        // -> 書けていない。
         /*
         Predicate<Integer> bool1 = (Integer c1) -> {
             boolean b2 = false;

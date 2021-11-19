@@ -8,6 +8,15 @@ import java.util.function.Supplier;
 class SampleFunctionalInterfaceLambda {
     public static void main(String[] args) {
         // 文字列入力、文字列出力の場合でFunctionインターフェースの場合
+        // ラムダ式を使わないで書く。
+        // Function c1 = new Function () {
+        //     @Override
+        //     public String apply(String a) {
+        //
+        //      return a +" です。";
+        //   }
+        // };
+        // };
         // 省略せず書く。
         // Function<String,String> c1 = (String a) -> {return a +" です。";};
         // 引数一つなので(String a)の部分を省略して書く。

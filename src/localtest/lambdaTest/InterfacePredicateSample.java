@@ -1,5 +1,6 @@
 package localtest.lambdaTest;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -62,8 +63,13 @@ class InterfacePredicateSample {
         };
         System.out.println(predicateSimple.test(c1));
         System.out.println();
-        // Streamが使えるか、と思ったが処理中の値も結果も単一の値なのでStreamを使うまでもない。
-        // 使って書けなくもないがかなり冗長になって意味不明なのでやめておく。
-        
+        // Streamが使えるか、と思ったが処理中の値も結果も単一の値なのでStreamを使うまでもないか？
+        // 一応Stream.ofでBooleanのstreamを作成することは可能。
+        Stream<Boolean> booleanStream = Stream.of(predicateSimple.test(c1));
+        booleanStream.forEach(System.out::println);
+        System.out.println();
+        // ついでにPredicateの中身は入力と出力が同じ型でないので簡単にlambda式にできない。
+        // Predicateで実装してる対象の処理がlambda式には不向き。
+        // (returnがbooleanを返すが入力は結局intなので型は一致しない。)
     }
 }

@@ -1,8 +1,6 @@
 package localtest.lambdaTest;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class InterfacePredicateSample {
@@ -76,6 +74,6 @@ class InterfacePredicateSample {
         // 単一の値を入れて取り出すのは可能だが実装テクニック的に練習以外にあまり意味はない。
         // Predicateで処理しているのは条件判定でtrueかfalseのbooleanを返すが入力はintなので、
         // Stream処理で同じ値を返すような仕組みは作りにくい。
-        
+
     }
 }

@@ -1,6 +1,7 @@
 package localtest.lambdaTest;
 
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 class InterfacePredicateSample {
     public static void main(String[] args) {
@@ -22,9 +23,9 @@ class InterfacePredicateSample {
             }
         }.test(c1);
         System.out.println(bool1);
+        System.out.println();
 
         // メソッド呼び出しと関数型インターフェースの定義の部分を分離して書く。
-
         Predicate predicateTest = new Predicate<Integer> () {
             @Override
             public boolean test(Integer c1) {
@@ -37,18 +38,32 @@ class InterfacePredicateSample {
                 return b2;
             };
         };
-        /*
-        Predicate predicateTest = s -> {
+        boolean bool1a = predicateTest.test(c1);
+        System.out.println(bool1a);
+        System.out.println();
+        // Predicateインターフェースの部分をラムダ式にする。
+        Predicate<Integer> predicateLambda = (Integer cs) -> {
             boolean b2 = false;
-            if (s == 1) {
+            if (cs == 1) {
                 b2 = true;
             } else {
                 b2 = false;
             };
             return b2;
         };
-         */
-        boolean bool2 = predicateTest.test(c1);
-        System.out.println(bool2);
+        boolean bool1b = predicateLambda.test(c1);
+        System.out.println(bool1b);
+        System.out.println();
+        // もう少し省略、if文も簡素化してみる。
+        Predicate<Integer> predicateSimple = ca -> {
+            boolean b2 = false;
+            if (ca == 1) b2 = true;
+            return b2;
+        };
+        System.out.println(predicateSimple.test(c1));
+        System.out.println();
+        // Streamが使えるか、と思ったが処理中の値も結果も単一の値なのでStreamを使うまでもない。
+        // 使って書けなくもないがかなり冗長になって意味不明なのでやめておく。
+        
     }
 }

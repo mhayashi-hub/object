@@ -51,14 +51,26 @@ class InterfaceSupplierSample {
         System.out.println();
 
         // ラムダ式に変更。
-        Supplier<String> list1conva = ((List<String> list) -> {
-            List<String> clist = new ArrayList<> ();
-            clist.add("赤");
-            clist.add("緑");
-            clist.add("黄");
-            return clist;
-        });
+        // Supplierインターフェースは引数0のため引数を指定できない(空の()で指定する)ことに注意する必要がある。
+        Supplier<List<String>> list1conva = () -> {
+            List<String> list = new ArrayList<> ();
+            list.add("赤");
+            list.add("緑");
+            list.add("黄");
+            return list;
+        };
+        List<String> list2b = list1conva.get();
+        list2b.forEach(s -> { System.out.println(s + " でした。"); });
+        System.out.println();
+        // リストインスタンス宣言を省略してまとめることもできる。
+        // 関数型インターフェースの出力がリストであることを利用したもの。型を把握してないと難しい。
+        list1conva.get().forEach(s -> {System.out.println(s +" でした。");});
+        System.out.println();
 
-
+        // Stream+lambdaでの書き直し。
+        // Supplier部分のメソッド実装の部分はstreamには入れにくい(リストに値を書き込んでから取り出すメソッドの実装のため)
+        // のでそのあとを実装してみる。
+        list2b.stream().map(s -> s +" でした。").forEach(System.out::println);
+        System.out.println();
         }
 }

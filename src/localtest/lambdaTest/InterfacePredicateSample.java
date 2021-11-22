@@ -2,6 +2,7 @@ package localtest.lambdaTest;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class InterfacePredicateSample {
@@ -71,5 +72,10 @@ class InterfacePredicateSample {
         // ついでにPredicateの中身は入力と出力が同じ型でないので簡単にlambda式にできない。
         // Predicateで実装してる対象の処理がlambda式には不向き。
         // (returnがbooleanを返すが入力は結局intなので型は一致しない。)
+        // 実装から考えるのではなくロジックから考えてみたが、Stream自体は複数の値を処理するのに向いており、
+        // 単一の値を入れて取り出すのは可能だが実装テクニック的に練習以外にあまり意味はない。
+        // Predicateで処理しているのは条件判定でtrueかfalseのbooleanを返すが入力はintなので、
+        // Stream処理で同じ値を返すような仕組みは作りにくい。
+        
     }
 }

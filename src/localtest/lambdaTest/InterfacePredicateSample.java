@@ -1,11 +1,12 @@
 package localtest.lambdaTest;
 
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class InterfacePredicateSample {
     public static void main(String[] args) {
-        int c1 = 10;
+        int c1 = 1;
 
         boolean bool1 = new Predicate<Integer>() {
             @Override
@@ -62,18 +63,41 @@ class InterfacePredicateSample {
         };
         System.out.println(predicateSimple.test(c1));
         System.out.println();
+        // 実装したい内容の整理。
+        // 必要なのは入力値がint相当であること、その数値が1かどうか判定するロジック、
+        // testメソッドの出力結果はbooleanでtrue/falseのどちらかのみ、booelan型であること。
+        // つまりif文判定ではなくbooleanで結果を出すequalsなどのメソッドでもよい。
+        // また、戻り値がequalsではbooleanに決まっている上に一行で終わるのでさらに省略できる。
+        // Predicateはbooleanを返す前提として決められた関数型インターフェースで、
+        // Predicateに与える型は引数の型、のため入力型に合わせた判定ロジックを選び、出力を
+        // boolean前提でロジックを単純化すればうまく書けるか？
+        Predicate<Integer> c3 = a -> a.equals(1);
+        System.out.println(c3.test(c1));
+        System.out.println();
+
         // Streamが使えるか、と思ったが処理中の値も結果も単一の値なのでStreamを使うまでもないか？
         // 一応Stream.ofでBooleanのstreamを作成することは可能。
+        // Streamはobject型を指定して生成できるのでbooleanのStreamを生成することも可能。
+        // booleanは一応Stringと同等のメソッドを持つはず。
         Stream<Boolean> booleanStream = Stream.of(predicateSimple.test(c1));
         booleanStream.forEach(System.out::println);
         System.out.println();
-        // ついでにPredicateの中身は入力と出力が同じ型でないので簡単にlambda式にできない。
-        // Predicateで実装してる対象の処理がlambda式には不向き。
-        // (returnがbooleanを返すが入力は結局intなので型は一致しない。)
+        // ついでにPredicateの中身は入力と出力が同じ型にはならない、というか出力は常にbooleanのはず。
+        // そういう前提で関数型インターフェースとして定義されている。
+        // (returnがbooleanを返すが入力は様々。なので入力と出力が同じ型、という前提は捨てて考えるべき。)
         // 実装から考えるのではなくロジックから考えてみたが、Stream自体は複数の値を処理するのに向いており、
         // 単一の値を入れて取り出すのは可能だが実装テクニック的に練習以外にあまり意味はない。
-        // Predicateで処理しているのは条件判定でtrueかfalseのbooleanを返すが入力はintなので、
-        // Stream処理で同じ値を返すような仕組みは作りにくい。
+        // StreamにPredicateを組み合わせて処理する条件判定については
+        // allMatch,anyMatch,noneMatchで中の判定式の結果について
+        // 全部一致するか、どれか一つは一致するか、何も一致しないかの判定でbooleanを返せる。
+
+        // もう一度Streamで書く試行。Streamは一要素でも作成可能。(コスト的に良いかは不明、実行は可能。)
+        // 今回の入力要素はintなのでIntStreamでよい。
+        // 判定ロジックはallMatchで戻り値判定がtrue/falseのbooleanになるのでそれを使う。
+        // allMatchメソッドならその中に条件式を書ける。出力はallMatchの形式でbooleanになる。
+        IntStream intStreamC1 =  IntStream.of(c1);
+        System.out.println(intStreamC1.boxed().allMatch(a -> a.equals(1)));
+        System.out.println();
 
     }
 }

@@ -62,7 +62,7 @@ class StreamSample {
         // sortedはsort機能。指定なしで辞書通りの昇順になるはず。
         list2.stream().sorted().forEach(System.out::println);
         System.out.println();
-        // ComparatorからreverseOrderをパワーんに指定すると降順にできる。
+        // ComparatorからreverseOrderをパターンに指定すると降順にできる。
         list2.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
         System.out.println();
         // distinctと組み合わせのテスト。

@@ -8,7 +8,7 @@ import java.util.Map;
 class ViewStock {
     // 在庫情報、表示を扱うクラス
     public static void main(String[] args) {
-        List<PersonalComputer> list = new ArrayList<>() {
+        List<PersonalComputer> tableList = new ArrayList<>() {
             {
                 add(new PersonalComputer("やまだ", 1, 1, 128, Constants.OS64, Constants.WIN10));
                 add(new PersonalComputer("いけだ", 2, 1, 128, Constants.OS64, Constants.WIN11));
@@ -21,20 +21,29 @@ class ViewStock {
             }
         };
         /*
-        for (PersonalComputer element:list) {
+        for (PersonalComputer element:tableList) {
             System.out.println(element);
         }
          */
-        Map<,List<PersonalComputer>> stockMap = new HashMap<> ();
-        int i = 0;
-        for (PersonalComputer element:list) {
-            if (! stockMap.containsKey((Integer) PersonalComputer.getPcNo())) {
-
-            } else if () {
-
+        Map<Integer,List<PersonalComputer>> stockMap = new HashMap<> ();
+        for (PersonalComputer personPc:tableList) {
+            if (! stockMap.containsKey(personPc.getPcNo())) {
+                    List <PersonalComputer> list = new ArrayList<> ();
+                    list.add(personPc);
+                    stockMap.put(personPc.getPcNo(),list);
+            } else if (stockMap.containsKey(personPc.getPcNo())) {
+                    stockMap.get(personPc.getPcNo()).add(personPc);
+            } else {
+                System.out.println("Error：stockMapに項目を追加できません。");
+                break;
             }
-            i++;
         }
-
+        for (Map.Entry entry:stockMap.entrySet()) {
+            List<PersonalComputer> extList = (List<PersonalComputer>) entry.getValue();
+            for (PersonalComputer extobj:extList) {
+                // System.out.println(extobj);
+                System.out.println("使用者名 "+ extobj.userName +" :PC管理番号 "+ extobj.pcNo +" :ストレージ管理番号 "+ extobj.storageNo +" OStype: "+ extobj.Os +" : "+ extobj.bit +" bit: "+ extobj.memory +" GB");
+            }
+        }
     }
 }

@@ -42,7 +42,13 @@ class ViewStock {
             List<PersonalComputer> extList = (List<PersonalComputer>) entry.getValue();
             for (PersonalComputer extobj:extList) {
                 // System.out.println(extobj);
-                System.out.println("使用者名 "+ extobj.userName +" :PC管理番号 "+ extobj.pcNo +" :ストレージ管理番号 "+ extobj.storageNo +" OStype: "+ extobj.Os +" : "+ extobj.bit +" bit: "+ extobj.memory +" GB");
+                System.out.println(
+                        "使用者名 "+ extobj.userName
+                                +" :PC管理番号 "+ extobj.pcNo
+                                +" :ストレージ管理番号 "+ extobj.storageNo
+                                +" OStype: "+ extobj.Os +" : "
+                                + extobj.bit +" bit: "
+                                +"メモリ "+ extobj.memory +" GB");
             }
         }
     }

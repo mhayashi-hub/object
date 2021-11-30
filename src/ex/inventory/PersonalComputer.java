@@ -2,18 +2,19 @@ package ex.inventory;
 
 class PersonalComputer {
     // PC情報を扱うクラス
+    // PCの在庫管理のための情報のひな形
     String userName ;
-    int pcNo ;
-    int storageNo;
-    int memory;
-    int bit;
-    String Os;
+    int pcNo ; // PCの在庫管理番号
+    int storageNo ; // 保管している倉庫の番号の情報
+    int price;
+    int bit ;
+    String Os ;
 
-    public PersonalComputer(String userName, int pcNo, int storageNo, int memory, int bit, String Os) {
+    public PersonalComputer(String userName, int pcNo, int storageNo, int price, int bit, String Os) {
         this.userName = userName;
         this.pcNo = pcNo;
         this.storageNo = storageNo;
-        this.memory = memory;
+        this.price = price;
         this.bit = bit;
         this.Os = Os;
     }
@@ -30,8 +31,8 @@ class PersonalComputer {
         return storageNo;
     }
 
-    public int getMemory() {
-        return memory;
+    public int getPrice() {
+        return price;
     }
 
     public int getBit() {

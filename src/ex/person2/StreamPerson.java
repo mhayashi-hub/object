@@ -39,10 +39,19 @@ class StreamPerson {
         personStreamList.stream().filter(n -> n.getGender().equals(Gender.WOMEN)).forEach(System.out::println);
         // 課題４
         System.out.println("課題４");
+        // 数値比較を行う場合、sortedメソッド内でlambda式を指定してソートすることができるがわかりにくい。
+        // 下記記述のs1は前に出現する要素、s2は後に出現する要素(そしてそれらのgetAgeでとれる値のintを比較できるという意味合いの記述)で、
+        // 後に出現する要素が前より大きいようにする、つまり降順、数字が小さくなる並びにするにはs2を先に指定してs2.** - s1.++ とする。
+        // 非常に分かりにくいが昇順なら s1.** - s2.**、降順ならs2.** - s1.** となると一律で覚えられる。
         personStreamList.stream().sorted((s1,s2) -> s2.getAge() - s1.getAge()).forEach(System.out::println);
         System.out.println("課題４別記述");
+        // Java8的に本来推奨されるべきはこちらの記述らしい。Comparator.comparingを使った方がわかりやすいか。
+        // Person::getAgeはクラスのメソッドを参照するための記述で、Stream APIでよく使われる。System.out::printlnと同じ。
         personStreamList.stream().sorted(Comparator.comparing(Person::getAge).reversed())
                 .forEach(System.out::println);
+        // 課題４－１ 年齢の昇順で並べて出力
+        System.out.println("課題４－１");
+        personStreamList.stream().sorted(Comparator.comparing(Person::getAge)).forEach(System.out::println);
         // 課題５
         System.out.println("課題５");
         personStreamList.stream().filter(s -> s.getGender().equals(Gender.MEN))

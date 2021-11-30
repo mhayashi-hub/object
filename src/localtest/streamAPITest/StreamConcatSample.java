@@ -46,8 +46,11 @@ class StreamConcatSample {
 
         // 作成済みStreamインスタンス同士を結合するとあたらしいStreamインスタンスとして要素に元のStreamの要素の
         // 型を保持したものがまとめて入れられてStreamインスタンスとなる。
-        // System.out.println(outStream2.count());
-        // なので、Stream自体をカウントすることはcount()メソッドにはできないので例外が発生。
+        System.out.println(outStream2.count());
+        // なので、Streamインスタンス自体をカウントすることはcount()メソッドにはできないので例外が発生。
+        // countメソッドは要素の数のカウントのため、想定する型があってそれに合致しなくなるから、と思われる。
+        // 結局は型の検査がStreamの処理時点できちんとチェックできないので例外でチェックするしかない。
+        // Stream自体はコーディング規約で決められてない限りはあまり使わない方がいい。(コーディング規約に従うのが重要。)
         // System.out.println(outStream1.count());
         // Streamを結合した場合、Stream群となるがその要素ごとに処理すればどうにかなる？
         // いやStreamの処理対象はあくまでも一つでは？

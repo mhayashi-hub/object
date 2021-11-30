@@ -34,7 +34,9 @@ class Person {
     // output method override
     @Override
     public String toString() {
-        return String.format("%s : %s %s %d", birthPlace.getName(),name,gender.getJpName(),age);
+        // 画面表示出力の調整
+        // return String.format("%s : %s %s %d", birthPlace.getName(),name,gender.getJpName(),age);
+        return String.format("%s %s %s %d", name,birthPlace.getName(),gender.getJpName(),age);
     }
 
 }

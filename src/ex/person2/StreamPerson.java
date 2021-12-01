@@ -139,5 +139,39 @@ class StreamPerson {
                 .mapToInt(s -> s.getAge()).average()
                 .ifPresent(s -> System.out.println("男性の平均年齢：" + s));
 
+        // IntegerのリストをStringに変更して画面出力するテスト。
+        List<Integer> sampleList = new ArrayList<> ();
+        sampleList.add(1);
+        sampleList.add(1);
+        sampleList.add(2);
+        sampleList.add(4);
+        sampleList.add(6);
+        System.out.println(sampleList);
+        sampleList.stream().map(s -> "結果：" + s + "点").forEach(System.out::println);
+
+        // Stringのリストを作成。
+        List<String> sample2List = new ArrayList<> ();
+        sample2List.add("赤");
+        sample2List.add("青");
+        sample2List.add("黄");
+        sample2List.add("赤");
+        sample2List.add("赤");
+        sample2List.add("赤");
+        sample2List.add("赤");
+        sample2List.add("緑");
+        System.out.println(sample2List);
+        // StringのリストをStreamにして数値に置換処理しIntStreamでsumやmaxやcountで処理するテスト。
+        // sum,countはlongやintなどで出てくるがmaxなどは(元の要素がintのためか？)OptionalIntで出てくる。
+        System.out.println(sample2List.stream().filter(p -> p.equals("赤")).map(s -> 1).mapToInt(s -> s)
+                .sum());
+        System.out.println(sample2List.stream().filter(p -> p.equals("赤")).map(s -> 1).mapToInt(s -> s)
+                .max());
+        System.out.println(sample2List.stream().filter(p -> p.equals("赤")).map(s -> 1).mapToInt(s -> s)
+                .count());
+        // 三項演算子のテスト。if-else文を一行で書けるようになるが、講義では未出。
+        // 一行で書けるのでlambda式とは相性がいいが、例外処理や処理抜けチェックは困難になりそう。
+        // 下記の処理では、リスト中の"赤"をIntegerの1に置換して再度リストに出している。
+        // mapは置換処理で使えるが、条件式をいれた三項演算子を使えば条件をつけての置換にも使える。
+        sample2List.stream().map(s -> s.equals("赤")?1:s).forEach(System.out::println);
     }
 }

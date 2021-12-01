@@ -125,11 +125,11 @@ class ViewStock {
         for (PersonalComputer part:tableList) {
             if (! osTypeBitMap.containsKey(part.getStorageNo())) {
                 List<String> osPropList = new ArrayList<> ();
-                osPropList.add((part.getOS() +":"+ String.valueOf(part.getBit()) +" bit"));
+                osPropList.add(part.getOS() +":"+ String.valueOf(part.getBit()) +"bit");
                 osTypeBitMap.put(part.getStorageNo(),osPropList);
             } else if (osTypeBitMap.containsKey(part.getStorageNo())) {
                 osTypeBitMap.get(part.getStorageNo())
-                        .add(part.getOS() +":"+ String.valueOf(part.getBit()) +" bit");
+                        .add(part.getOS() +":"+ String.valueOf(part.getBit()) +"bit");
             } else {
                 System.out.println("Error : osTypeBitMapに情報を追加できませんでした。");
             }

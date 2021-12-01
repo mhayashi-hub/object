@@ -74,6 +74,10 @@ class StreamPerson {
         genderGroupListMap.entrySet().stream().map(s -> s.getKey().getJpName() +":"+ s.getValue())
                 .forEach(System.out::println);
         // GroupingByでグループ化した後で別のマップに分割してみる。
+        // toMapとか使わずにcollectでマップオブジェクトとして渡して生成、生成前の時点でGroupingするが、その前に
+        // Genderでfilterをかけておけば、性別ごとのマップとしてまとめることができる。
+        // ただやり方としては一つのマップでGroupingByでグループ化したものと特に変わらないので、二つのマップに
+        // 分割する時点で手間が増えている。
         Map<Gender,List<Person>> menGroupListMap = personStreamList.stream()
                 .filter(s -> s.getGender().equals(Gender.MEN)).collect(Collectors.groupingBy(Person::getGender));
         // System.out.println(menGroupListMap);
@@ -115,8 +119,11 @@ class StreamPerson {
         System.out.println("課題１０");
         OptionalDouble womenAgeAverage = personStreamList.stream().filter(p -> p.getGender().equals(Gender.WOMEN))
                 .mapToInt(s -> s.getAge()).average();
+        // averageの結果でOptionalDoubleが出てくるため、上記ではOptionalDoubleの変数に格納してから下でgetAsDoubleで
+        // Doubleに変換している。この場合もnullが出る可能性があるが、この処理(get**())では特に対処していないので、
+        // 仮にnullが発生していた場合は実行時例外が起きてしまう。
         System.out.println("女性の平均年齢：" + womenAgeAverage.getAsDouble());
-        // 課題１０別解 ifPresentでIntStreamのgetAsDouble()も置き換え可能らしい。多態性の利点か？
+        // 課題１０別解 ifPresent()でIntStreamのgetAsDouble()も置き換え可能らしい。多態性の利点か？
         personStreamList.stream().filter(p -> p.getGender().equals(Gender.WOMEN))
                 .mapToInt(s -> s.getAge()).average()
                 .ifPresent(s -> System.out.println("女性の平均年齢；" + s));
@@ -127,6 +134,7 @@ class StreamPerson {
                 .mapToInt(s -> s.getAge()).average();
         System.out.println("男性の平均年齢：" + menAgeAverage.getAsDouble());
         // 課題１１別解 ifPresent()内でprintln使って出力。
+        // 間違ってnullが入った場合の例外処理についても、事前にifPresentで発生しないようにしてるので対処済。
         personStreamList.stream().filter(p -> p.getGender().equals(Gender.MEN))
                 .mapToInt(s -> s.getAge()).average()
                 .ifPresent(s -> System.out.println("男性の平均年齢：" + s));

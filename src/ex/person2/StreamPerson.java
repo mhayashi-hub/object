@@ -103,6 +103,12 @@ class StreamPerson {
         // ()内の処理にprintlnを入れて値として渡せるので、上にprintlnをかぶせる必要がなくなる。
         personStreamList.stream().filter(p -> p.getGender().equals(Gender.MEN))
                 .max(Comparator.comparing(Person::getAge)).ifPresent(s -> System.out.println(s));
+        // maxなどの処理は文字コードレベルで値を比較チェックするだけなので、stream内でmax/minを取り出すことは可能。
+        // 本来はmapToIntでIntStreamにした方が型の相違等で問題にはならなくなる。
+        personStreamList.stream().filter(p -> p.getGender().equals(Gender.MEN))
+                .mapToInt(s -> s.getAge()).max().ifPresent(s -> System.out.println(s));
+        // maxの値をもつリストが複数あった場合の処理は、この書き方ではできない。
+        // 別の書き方、たぶんList形式にして複数を受け入れるリストに書き出すような書き方に変更する必要がある。
 
         // 課題９
         System.out.println("課題９");
@@ -139,7 +145,7 @@ class StreamPerson {
                 .mapToInt(s -> s.getAge()).average()
                 .ifPresent(s -> System.out.println("男性の平均年齢：" + s));
 
-        // IntegerのリストをStringに変更して画面出力するテスト。
+        // IntegerのリストをStringに変更して画面出力するテスト。mapを使うとStringなどに変換して要素を修正できる。
         List<Integer> sampleList = new ArrayList<> ();
         sampleList.add(1);
         sampleList.add(1);

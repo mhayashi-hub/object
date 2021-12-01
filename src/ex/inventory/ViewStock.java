@@ -25,6 +25,7 @@ class ViewStock {
             System.out.println(element);
         }
          */
+        // 全体の情報をまとめた在庫情報 stockMapを生成。
         Map<Integer,List<PersonalComputer>> stockMap = new HashMap<> ();
         for (PersonalComputer personPc:tableList) {
             if (! stockMap.containsKey(personPc.getPcNo())) {
@@ -38,6 +39,7 @@ class ViewStock {
                 break;
             }
         }
+        // 在庫情報をまとめて表示。
         for (Map.Entry entry:stockMap.entrySet()) {
             List<PersonalComputer> extList = (List<PersonalComputer>) entry.getValue();
             for (PersonalComputer extobj:extList) {
@@ -51,6 +53,7 @@ class ViewStock {
                                 +"価格 "+ extobj.price +" 円");
             }
         }
+        // 在庫倉庫番号で区分けした全体情報の表 storagePriceMapを作成。
         Map<Integer,List<PersonalComputer>> storagePriceMap = new HashMap<> ();
         for (PersonalComputer pcPart:tableList) {
             if (! storagePriceMap.containsKey(pcPart.getStorageNo())) {
@@ -64,6 +67,7 @@ class ViewStock {
             }
         }
         // System.out.println(storagePriceMap);
+        // 在庫倉庫番号ごとの全体情報のリスト表示。
         for (Map.Entry<Integer, List<PersonalComputer>> entry:storagePriceMap.entrySet()) {
             List<PersonalComputer> extPcList = (List<PersonalComputer>) entry.getValue();
             System.out.println("在庫収納倉庫番号："+ entry.getKey());
@@ -73,7 +77,7 @@ class ViewStock {
                         +" 在庫価格："+ outList.getPrice() +"円");
                 }
             }
-
+        // 在庫表示番号と価格の表 priceMapの作成。
         Map<Integer,List<Integer>> priceMap = new HashMap<> ();
         for (PersonalComputer part:tableList) {
             if (! priceMap.containsKey(part.getStorageNo())) {
@@ -87,11 +91,55 @@ class ViewStock {
             }
         }
         //    System.out.println(priceMap);
+        // 在庫表示番号と価格の表のリスト表示。
         for (Map.Entry pcEntry:priceMap.entrySet()) {
             List<Integer> outPriceList = (List<Integer>) pcEntry.getValue();
             System.out.println("在庫収納倉庫番号："+ pcEntry.getKey());
             for (Integer partPrice:outPriceList) {
                 System.out.println("在庫品価格："+ partPrice +"円");
+            }
+        }
+        // 在庫倉庫番号とOSの表　osMap作成。
+        Map<Integer, List<String>> osMap = new HashMap<> ();
+        for (PersonalComputer part:tableList) {
+            if (! osMap.containsKey(part.getStorageNo())) {
+                List<String> osList = new ArrayList<> ();
+                osList.add(part.getOS());
+                osMap.put(part.getStorageNo(),osList);
+            } else if (osMap.containsKey(part.getStorageNo())) {
+                osMap.get(part.getStorageNo()).add(part.getOS());
+            } else {
+                System.out.println("Error : osMapに情報を追加できませんでした。");
+            }
+        }
+        // 在庫管理番号ごとのOSの表のリスト表示。
+        for (Map.Entry pcEntry:osMap.entrySet()) {
+            List<String> outOsList = (List<String>) pcEntry.getValue();
+            System.out.println("在庫収納倉庫番号：" + pcEntry.getKey());
+            for (String osString:outOsList) {
+                System.out.println("OSタイプ：" + osString);
+            }
+        }
+        // 在庫管理番号とOSタイプ、OS bit数の表のマップ作成。
+        Map<Integer,List<String>> osTypeBitMap = new HashMap<> ();
+        for (PersonalComputer part:tableList) {
+            if (! osTypeBitMap.containsKey(part.getStorageNo())) {
+                List<String> osPropList = new ArrayList<> ();
+                osPropList.add((part.getOS() +":"+ String.valueOf(part.getBit()) +" bit"));
+                osTypeBitMap.put(part.getStorageNo(),osPropList);
+            } else if (osTypeBitMap.containsKey(part.getStorageNo())) {
+                osTypeBitMap.get(part.getStorageNo())
+                        .add(part.getOS() +":"+ String.valueOf(part.getBit()) +" bit");
+            } else {
+                System.out.println("Error : osTypeBitMapに情報を追加できませんでした。");
+            }
+        }
+        // 在庫管理番号ごとのOSとタイプの表のリスト表示。
+        for (Map.Entry pcEntry:osTypeBitMap.entrySet()) {
+            List<String> outOsTypeList = (List<String>) pcEntry.getValue();
+            System.out.println("在庫収納倉庫番号：" + pcEntry.getKey());
+            for (String osType : outOsTypeList) {
+                System.out.println("OSタイプ：" + osType);
             }
         }
     }

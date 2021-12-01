@@ -105,6 +105,7 @@ class StreamPerson {
                 .max(Comparator.comparing(Person::getAge)).ifPresent(s -> System.out.println(s));
         // maxなどの処理は文字コードレベルで値を比較チェックするだけなので、stream内でmax/minを取り出すことは可能。
         // 本来はmapToIntでIntStreamにした方が型の相違等で問題にはならなくなる。
+        // averageなどは演算するため、確実にintで処理できるようIntStreamに変更するためmapToIntを使わないといけない。
         personStreamList.stream().filter(p -> p.getGender().equals(Gender.MEN))
                 .mapToInt(s -> s.getAge()).max().ifPresent(s -> System.out.println(s));
         // maxの値をもつリストが複数あった場合の処理は、この書き方ではできない。

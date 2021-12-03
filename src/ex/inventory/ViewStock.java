@@ -26,6 +26,7 @@ class ViewStock {
         }
          */
         // 全体の情報をまとめた在庫情報 stockMapを生成。
+        // KeyはpcNoでまとめる。
         Map<Integer,List<PersonalComputer>> stockMap = new HashMap<> ();
         for (PersonalComputer personPc:tableList) {
             if (! stockMap.containsKey(personPc.getPcNo())) {
@@ -40,6 +41,7 @@ class ViewStock {
             }
         }
         // 在庫情報をまとめて表示。
+        System.out.println("在庫情報の全情報リスト表示：");
         for (Map.Entry entry:stockMap.entrySet()) {
             List<PersonalComputer> extList = (List<PersonalComputer>) entry.getValue();
             for (PersonalComputer extobj:extList) {
@@ -53,6 +55,7 @@ class ViewStock {
                                 +"価格 "+ extobj.price +" 円");
             }
         }
+        //
         // 在庫倉庫番号で区分けした全体情報の表 storagePriceMapを作成。
         Map<Integer,List<PersonalComputer>> storagePriceMap = new HashMap<> ();
         for (PersonalComputer pcPart:tableList) {
@@ -68,6 +71,7 @@ class ViewStock {
         }
         // System.out.println(storagePriceMap);
         // 在庫倉庫番号ごとの全体情報のリスト表示。
+        System.out.println("在庫番号でまとめた全体の情報表示：");
         for (Map.Entry<Integer, List<PersonalComputer>> entry:storagePriceMap.entrySet()) {
             List<PersonalComputer> extPcList = (List<PersonalComputer>) entry.getValue();
             System.out.println("在庫収納倉庫番号："+ entry.getKey());
@@ -92,6 +96,7 @@ class ViewStock {
         }
         //    System.out.println(priceMap);
         // 在庫表示番号と価格の表のリスト表示。
+        System.out.println("在庫倉庫番号と価格のリスト表示：");
         for (Map.Entry pcEntry:priceMap.entrySet()) {
             List<Integer> outPriceList = (List<Integer>) pcEntry.getValue();
             System.out.println("在庫収納倉庫番号："+ pcEntry.getKey());
@@ -99,6 +104,43 @@ class ViewStock {
                 System.out.println("在庫品価格："+ partPrice +"円");
             }
         }
+        System.out.println("在庫倉庫ごとの合計金額：");
+        for (Map.Entry priceEntry:priceMap.entrySet()) {
+            List<Integer> outPriceList = ((List<Integer>) priceEntry.getValue());
+            int sumPrice = 0;
+            for (Integer partsPrice:outPriceList) {
+                sumPrice += partsPrice;
+            }
+            System.out.println("在庫収納倉庫番号："+ priceEntry.getKey() +": "+ sumPrice +"円");
+        }
+        System.out.println("在庫倉庫ごとのPC台数：");
+        for (Map.Entry partEntry:priceMap.entrySet()) {
+            List<Integer> outPartList = (List<Integer>) partEntry.getValue();
+            int pcCount = 0;
+            for (Integer partsPrice:outPartList) {
+                pcCount++;
+            }
+            System.out.println("在庫収納倉庫番号："+ partEntry.getKey() +" 在庫PC台数："+ pcCount + "台");
+        }
+        System.out.println("在庫倉庫ごとの一台の平均価格：");
+        for (Map.Entry priceEntry:priceMap.entrySet()) {
+            List<Integer> outPriceList = ((List<Integer>) priceEntry.getValue());
+            int sumPrice = 0;
+            double avePrice = 0.0;
+            int pcCount = 0;
+            for (Integer partsPrice:outPriceList) {
+                sumPrice += partsPrice;
+                pcCount++;
+            }
+            if (pcCount > 0) {
+                avePrice = ((double) sumPrice)/pcCount;
+            } else {
+                System.out.println("Error : PC台数が0です。");
+                break;
+            }
+            System.out.println("在庫収納倉庫番号：" + priceEntry.getKey() + "　在庫一台の平均価格：" + avePrice +"円");
+        }
+
         // 在庫倉庫番号とOSの表　osMap作成。
         Map<Integer, List<String>> osMap = new HashMap<> ();
         for (PersonalComputer part:tableList) {

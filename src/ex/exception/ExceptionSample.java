@@ -15,7 +15,8 @@ class ExceptionSample {
         } finally {
             // finallyブロックは特になくてもよいが、実行時例外が出ても出なくても実行できる。
             // プログラムの終了状態を示すのに使えるかもしれないが、あんまりいらないかも。(冗長になる？)
-            // Java7以前の書式らしいがJava7以降ではfinallyなしでも問題ないはず。
+            // Java7以前の書式らしいがJava7以降ではfinallyなしでも問題ないはず？
+            // -> 本来はtry with resource構文を使うべき。
             System.out.println("処理終了しました。");
         }
     }

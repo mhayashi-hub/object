@@ -28,6 +28,7 @@ class Temp1 {
         } else {
             System.out.println("ファイルが既に存在します。：" + fullPath);
         }
+
         Path filePath = Paths.get("./src/ex/file/temp2.txt");
         if (Files.notExists(filePath)) {
             try {
